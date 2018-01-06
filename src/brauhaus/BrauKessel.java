@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistenz.Konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
-import brauhaus.brauplan.IBrauPlan;
+import brauhaus.bierData.IBrauPlan;
 
 /**
  *

@@ -5,7 +5,7 @@
  */
 package brauhaus;
 
-import brauhaus.brauplan.IBrauPlan;
+import brauhaus.bierData.IBrauPlan;
 
 /**
  * Obesrste Ebene über die ein Brauprozess besteuert werden kann.

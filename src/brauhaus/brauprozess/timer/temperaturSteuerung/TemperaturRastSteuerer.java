@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.timer.temperaturSteuerung;
 
-import brauhaus.brauplan.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.TemperaturRast;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
 import sensoren.common.messergebnis.EPraefix;

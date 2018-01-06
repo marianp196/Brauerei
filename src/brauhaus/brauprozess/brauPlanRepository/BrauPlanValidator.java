@@ -5,8 +5,8 @@
  */
 package brauhaus.brauprozess.brauPlanRepository;
 
-import brauhaus.brauplan.brauelemente.Brauelement;
-import brauhaus.brauplan.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.TemperaturRast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;

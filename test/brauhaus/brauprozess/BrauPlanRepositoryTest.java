@@ -7,9 +7,9 @@ package brauhaus.brauprozess;
  */
 
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
-import brauhaus.brauplan.brauelemente.Brauelement;
-import brauhaus.brauplan.brauelemente.HopfenKochen;
-import brauhaus.brauplan.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.HopfenKochen;
+import brauhaus.bierData.brauelemente.TemperaturRast;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

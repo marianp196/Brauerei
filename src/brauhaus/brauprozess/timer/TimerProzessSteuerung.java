@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.timer;
 
-import brauhaus.brauplan.IBrauPlan;
+import brauhaus.bierData.IBrauPlan;
 import brauhaus.brauprozess.BrauProzessInfo;
 import brauhaus.brauprozess.IBrauProzess;
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;

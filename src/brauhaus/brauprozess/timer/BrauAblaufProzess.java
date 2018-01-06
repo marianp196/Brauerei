@@ -5,10 +5,10 @@
  */
 package brauhaus.brauprozess.timer;
 
-import brauhaus.brauplan.IBrauPlan;
-import brauhaus.brauplan.brauelemente.Brauelement;
-import brauhaus.brauplan.brauelemente.HopfenKochen;
-import brauhaus.brauplan.brauelemente.TemperaturRast;
+import brauhaus.bierData.IBrauPlan;
+import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.HopfenKochen;
+import brauhaus.bierData.brauelemente.TemperaturRast;
 import brauhaus.brauprozess.BrauProzessInfo;
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
 import brauhaus.brauprozess.timer.temperaturSteuerung.HopfenkochenSteuerer;

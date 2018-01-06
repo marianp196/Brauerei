@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.brauplan;
+package brauhaus.bierData;
 
-import brauhaus.brauplan.bierData.Bier;
-import brauhaus.brauplan.brauelemente.Brauelement;
-import brauhaus.brauplan.brauelemente.HopfenKochen;
-import brauhaus.brauplan.brauelemente.TemperaturRast;
+import brauhaus.bierData.bier.Bier;
+import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.HopfenKochen;
+import brauhaus.bierData.brauelemente.TemperaturRast;
 import java.util.ArrayList;
 
 /**

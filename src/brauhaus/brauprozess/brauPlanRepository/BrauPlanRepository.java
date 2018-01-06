@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.brauPlanRepository;
 
-import brauhaus.brauplan.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.Brauelement;
 import java.util.ArrayList;
 import java.util.Collections;
 

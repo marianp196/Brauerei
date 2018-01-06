@@ -5,8 +5,8 @@
  */
 package brauhaus.brauprozess;
 
-import brauhaus.brauplan.bierData.Bier;
-import brauhaus.brauplan.IBrauPlan;
+import brauhaus.bierData.bier.Bier;
+import brauhaus.bierData.IBrauPlan;
 
 /**
  *
