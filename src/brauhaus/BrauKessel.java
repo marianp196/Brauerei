@@ -1,0 +1,127 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package brauhaus;
+
+import hardwaresteuerung.IHardwareInformation;
+import hardwaresteuerung.IHardwareSteuerung;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import persistenz.Konfiguration.IKonfiguration;
+import brauhaus.actions.IActionTryChangeSteuerelementState;
+import brauhaus.brauplan.IBrauPlan;
+
+/**
+ *
+ * @author marian
+ */
+public class BrauKessel extends Observable implements IBrauKessel {
+
+     public BrauKessel(IHardwareSteuerung hardwareSteuerung, 
+            IHardwareInformation hardwareInformation, 
+            IKonfiguration konfiguration) 
+    {
+         commonConstructor(hardwareSteuerung, hardwareInformation, konfiguration, null);
+    }
+    
+    public BrauKessel(IHardwareSteuerung hardwareSteuerung, 
+            IHardwareInformation hardwareInformation, 
+            IKonfiguration konfiguration,
+            IActionTryChangeSteuerelementState actionSignal) 
+    {
+        
+        commonConstructor(hardwareSteuerung, hardwareInformation, konfiguration, actionSignal);
+    }
+
+   
+    @Override
+    public BrauhausInfo GetInfo() {        
+        return new BrauhausInfo(hardwareInformation.GetTemperaturBraukessel(),//Unnötige Beziehung
+                                hardwareInformation.GetHeizWerkStatus(),
+                                hardwareInformation.GetRuehwerkStatus());
+    }
+
+    @Override
+    public void SetRuehwerkStatus(boolean state) 
+    {
+        try {
+            hardwareSteuerung.SetRuehrwerkStatus(state);
+            signalAction();
+        } catch (Exception ex) {
+            Logger.getLogger(BrauKessel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void SetHeizwerkStatus(boolean state) {
+        try {
+            hardwareSteuerung.SetHeizwerkStatus(state);
+            signalAction();
+        } catch (Exception ex) {
+            Logger.getLogger(BrauKessel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void PlayBrauProzess(IBrauPlan brauPlan) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PauseBrauProzess() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void StopBrauProzess() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     private void commonConstructor(IHardwareSteuerung hardwareSteuerung1, IHardwareInformation hardwareInformation1, IKonfiguration konfiguration1, IActionTryChangeSteuerelementState actionSignal1) throws NullPointerException {
+        if (hardwareSteuerung1 == null) {
+            throw new NullPointerException("hardwareSteuerung");
+        }
+        if (hardwareInformation1 == null) {
+            throw new NullPointerException("hardwareInformation");
+        }
+        if (konfiguration1 == null) {
+            throw new NullPointerException("konfiguration");
+        }
+        this.hardwareSteuerung = hardwareSteuerung1;
+        this.hardwareInformation = hardwareInformation1;
+        this.konfiguration = konfiguration1;
+        this.actionSignal = actionSignal1;
+        setObserverTimer();
+    }
+    
+    private void setObserverTimer() {
+        Timer infoObserverProzess = new Timer();
+        infoObserverProzess.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                setChanged();
+                notifyObservers((Object)GetInfo());
+            }
+        }
+        , 0, 100);
+    }
+    
+    private void signalAction() {
+        if(actionSignal != null)
+            actionSignal.MachEs();//Ich will C#
+    }
+    
+    private Timer infoObserverProzess;
+    
+    private IHardwareSteuerung hardwareSteuerung;
+    private IHardwareInformation hardwareInformation;
+    private IKonfiguration konfiguration;
+    private IActionTryChangeSteuerelementState actionSignal;  
+   
+}
