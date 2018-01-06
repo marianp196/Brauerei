@@ -53,8 +53,9 @@ public class TimerProzessSteuerung implements IBrauProzess
         if(prozessTimer != null)
             throw new Exception("Prozess läuft bereits");
         if(terminated)
-            throw new Exception("Prozess durchgelaufen");
-        
+            throw new Exception("Prozess durchgelaufen");       
+       
+        prozessTimer = new Timer();
         prozessTimer.schedule(brauProzess, 0, timerIntervall);
     }
 

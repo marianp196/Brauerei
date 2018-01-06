@@ -17,7 +17,8 @@ public interface IBrauKessel
     void SetRuehwerkStatus(boolean state);
     void SetHeizwerkStatus(boolean state);
     
-    void PlayBrauProzess(IBrauPlan brauPlan);
-    void PauseBrauProzess();
-    void StopBrauProzess();
+    void StartBrauProzess(IBrauPlan brauPlan) throws Exception;
+    void PlayBrauProzess() throws Exception;
+    void PauseBrauProzess() throws Exception;
+    void StopBrauProzess() throws Exception;
 }

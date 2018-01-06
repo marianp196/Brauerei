@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import persistenz.Konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
 import brauhaus.bierData.IBrauPlan;
+import brauhaus.brauprozess.timer.TimerProzessSteuerung;
 
 /**
  *
@@ -69,18 +70,40 @@ public class BrauKessel extends Observable implements IBrauKessel {
     }
 
     @Override
-    public void PlayBrauProzess(IBrauPlan brauPlan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void StartBrauProzess(IBrauPlan brauPlan) throws Exception 
+    {
+        if(brauProzess != null)
+            throw new Exception("Aktueller Brauprozess wurde nicht gestoppt!");
+        if(brauPlan == null)
+            throw new NullPointerException("brauPlan");
+        
+        brauProzess = new TimerProzessSteuerung(brauPlan, 500, 
+                hardwareInformation, hardwareSteuerung);
+        brauProzess.Start();
+    }
+    
+    @Override
+    public void PlayBrauProzess() throws Exception 
+    {
+        if(brauProzess == null)
+            throw new Exception("Aktueller Brauprozess existiert nicht!");
+        brauProzess.Start();
+    }
+   
+
+    @Override
+    public void PauseBrauProzess() throws Exception {
+        if(brauProzess == null)
+           throw new Exception("Aktueller Brauprozess existiert nicht!");
+        brauProzess.Pause();
     }
 
     @Override
-    public void PauseBrauProzess() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void StopBrauProzess() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void StopBrauProzess() throws Exception {
+        if(brauProzess == null)
+           throw new Exception("Aktueller Brauprozess existiert nicht!");
+        brauProzess.Stop();
+        brauProzess = null;
     }
     
      private void commonConstructor(IHardwareSteuerung hardwareSteuerung1, IHardwareInformation hardwareInformation1, IKonfiguration konfiguration1, IActionTryChangeSteuerelementState actionSignal1) throws NullPointerException {
@@ -118,10 +141,12 @@ public class BrauKessel extends Observable implements IBrauKessel {
     }
     
     private Timer infoObserverProzess;
+    private TimerProzessSteuerung brauProzess;
     
     private IHardwareSteuerung hardwareSteuerung;
     private IHardwareInformation hardwareInformation;
     private IKonfiguration konfiguration;
     private IActionTryChangeSteuerelementState actionSignal;  
-   
+
+    
 }
