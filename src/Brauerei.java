@@ -5,6 +5,7 @@ import brauhaus.startup.ConsolePrinter;
 import brauhaus.startup.IPrinter;
 import brauhaus.startup.StandardStartupOneKessel;
 import gui.GStandardSteuerFenster;
+import gui.konsole.BrauereiShell;
 
 /**
  *
@@ -17,13 +18,8 @@ public class Brauerei {
         StandardStartupOneKessel startup = new StandardStartupOneKessel(printer);
         IBrauKessel braukessel = startup.BuildBrauKessel();
         
-        steuerungStarten(printer, braukessel);
+        BrauereiShell brauereiShell = new BrauereiShell(braukessel,printer);
     }
 
-    private static void steuerungStarten(IPrinter printer, IBrauKessel braukessel) {
-        printer.PrintLn("Starte Gui Steuerung....");
-        GStandardSteuerFenster steuerFenster = new GStandardSteuerFenster(braukessel);
-        ((BrauKessel)braukessel).addObserver(steuerFenster);
-        steuerFenster.setVisible(true);
-    }
+    
 }
