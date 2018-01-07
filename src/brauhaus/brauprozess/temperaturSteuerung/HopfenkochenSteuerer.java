@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.brauprozess.timer.temperaturSteuerung;
+package brauhaus.brauprozess.temperaturSteuerung;
 
 import brauhaus.bierData.brauelemente.HopfenKochen;
 import brauhaus.bierData.brauelemente.TemperaturRast;

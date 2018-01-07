@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.brauprozess.timer;
+package brauhaus.brauprozess;
 
 import brauhaus.bierData.IBrauPlan;
 import brauhaus.bierData.brauelemente.Brauelement;
@@ -11,9 +11,9 @@ import brauhaus.bierData.brauelemente.HopfenKochen;
 import brauhaus.bierData.brauelemente.TemperaturRast;
 import brauhaus.brauprozess.BrauProzessInfo;
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
-import brauhaus.brauprozess.timer.temperaturSteuerung.HopfenkochenSteuerer;
-import brauhaus.brauprozess.timer.temperaturSteuerung.ITemperaturSteuerung;
-import brauhaus.brauprozess.timer.temperaturSteuerung.TemperaturRastSteuerer;
+import brauhaus.brauprozess.temperaturSteuerung.HopfenkochenSteuerer;
+import brauhaus.brauprozess.temperaturSteuerung.ITemperaturSteuerung;
+import brauhaus.brauprozess.temperaturSteuerung.TemperaturRastSteuerer;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
 import java.util.TimerTask;

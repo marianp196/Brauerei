@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import persistenz.Konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
 import brauhaus.bierData.IBrauPlan;
-import brauhaus.brauprozess.timer.TimerProzessSteuerung;
+import brauhaus.brauprozess.TimerProzessSteuerung;
 
 /**
  *

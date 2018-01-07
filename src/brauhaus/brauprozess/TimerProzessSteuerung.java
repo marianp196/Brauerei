@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.brauprozess.timer;
+package brauhaus.brauprozess;
 
 import brauhaus.bierData.IBrauPlan;
 import brauhaus.brauprozess.BrauProzessInfo;

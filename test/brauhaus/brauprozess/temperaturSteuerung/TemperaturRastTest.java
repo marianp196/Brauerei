@@ -8,7 +8,6 @@ package brauhaus.brauprozess.temperaturSteuerung;
 import brauhaus.bierData.brauelemente.TemperaturRast;
 import brauhaus.brauprozess.temperaturSteuerung.util.HardwareMock;
 import brauhaus.brauprozess.temperaturSteuerung.util.HardwareMockDTO;
-import brauhaus.brauprozess.timer.temperaturSteuerung.TemperaturRastSteuerer;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
