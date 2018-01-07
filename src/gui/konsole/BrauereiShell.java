@@ -35,7 +35,7 @@ public class BrauereiShell implements IKonsoleInputAction
     }
 
     private void printPrompt() {
-        System.out.print("Brauerei@Brauer$ ");
+        System.out.print("Brauer@Brauerei$ ");
     }
     
     private void interpretiereBefehl(String befehl) 
