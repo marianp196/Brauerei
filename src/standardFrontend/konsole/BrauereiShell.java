@@ -8,6 +8,7 @@ package standardFrontend.konsole;
 import brauhaus.IBrauKessel;
 import input.KonsoleInput;
 import java.util.Observer;
+import output.IPrinter;
 import output.StandardPrinter;
 import shell.Shell;
 import shell.abstractions.IShell;
@@ -21,7 +22,8 @@ public class BrauereiShell
     public BrauereiShell(IBrauKessel brauKessel) throws Exception
     {
         this.brauKessel = brauKessel;
-        shell = new Shell(new StandardPrinter());
+        IPrinter printer = new StandardPrinter();
+        shell = new Shell(printer);
         
         KonsoleInput konsolenInput = new KonsoleInput();
         konsolenInput.addObserver((Observer)shell);
@@ -30,6 +32,10 @@ public class BrauereiShell
         shell.SetPraeambel("********************BarauereiShell********************");
         
         shell.AddProgramm(new SteuerungsFensterProgramm(brauKessel));
+        shell.AddProgramm(new TempProgramm(brauKessel, printer));
+        shell.AddProgramm(new RuehrwerkProgramm(brauKessel, printer));
+        shell.AddProgramm(new HeizwerkProgramm(brauKessel, printer));
+        
         shell.Start();
     }
         
