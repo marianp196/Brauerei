@@ -1,4 +1,4 @@
-package gui;
+package standardFrontend.gui;
 
 
 import brauhaus.BrauhausInfo;

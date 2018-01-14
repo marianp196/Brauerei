@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.konsole;
+package standardFrontend.konsole;
 
 import brauhaus.IBrauKessel;
-import gui.GStandardSteuerFenster;
+import standardFrontend.gui.GStandardSteuerFenster;
 import java.util.Observable;
 import shell.abstractions.IProgramm;
 

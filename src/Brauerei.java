@@ -4,8 +4,8 @@ import brauhaus.IBrauKessel;
 import brauhaus.startup.ConsolePrinter;
 import brauhaus.startup.IPrinter;
 import brauhaus.startup.StandardStartupOneKessel;
-import gui.GStandardSteuerFenster;
-import gui.konsole.BrauereiShell;
+import standardFrontend.gui.GStandardSteuerFenster;
+import standardFrontend.konsole.BrauereiShell;
 
 /**
  *
