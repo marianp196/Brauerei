@@ -18,7 +18,7 @@ public class Brauerei {
         StandardStartupOneKessel startup = new StandardStartupOneKessel(printer);
         IBrauKessel braukessel = startup.BuildBrauKessel();
         
-        BrauereiShell brauereiShell = new BrauereiShell(braukessel,printer);
+        BrauereiShell brauereiShell = new BrauereiShell(braukessel);
     }
 
     
