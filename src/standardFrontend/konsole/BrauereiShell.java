@@ -5,6 +5,10 @@
  */
 package standardFrontend.konsole;
 
+import standardFrontend.konsole.programme.HeizwerkProgramm;
+import standardFrontend.konsole.programme.TempProgramm;
+import standardFrontend.konsole.programme.RuehrwerkProgramm;
+import standardFrontend.konsole.programme.SteuerungsFensterProgramm;
 import brauhaus.IBrauKessel;
 import input.KonsoleInput;
 import java.util.Observer;

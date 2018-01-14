@@ -3,21 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package standardFrontend.konsole;
+package standardFrontend.konsole.programme;
 
 import brauhaus.IBrauKessel;
-import standardFrontend.gui.GStandardSteuerFenster;
-import java.util.Observable;
 import output.IPrinter;
 import shell.abstractions.IProgramm;
+import standardFrontend.gui.GStandardSteuerFenster;
 
 /**
  *
  * @author marian
  */
-public class RuehrwerkProgramm implements IProgramm{
+public class HeizwerkProgramm implements IProgramm{
 
-    public RuehrwerkProgramm(IBrauKessel brauKessel, IPrinter printer) {
+    public HeizwerkProgramm(IBrauKessel brauKessel, IPrinter printer) {
         this.brauKessel = brauKessel;
         this.printer = printer;
     }
@@ -25,13 +24,13 @@ public class RuehrwerkProgramm implements IProgramm{
     @Override
     public String GetProgrammIdentifier() 
     {
-        return "ruehr";
+        return "heiz";
     }
 
     @Override
     public String GetErklaerung() 
     {
-        return "Steuert das Rührwerk.\n Parameter: -u up -d down";
+        return "Steuert das Heizwerk.\n Parameter: -u up -d down";
     }
 
     @Override
@@ -45,12 +44,12 @@ public class RuehrwerkProgramm implements IProgramm{
         
         if(param[0].equals("-u"))
         {
-            brauKessel.SetRuehwerkStatus(true);
-            printer.PrintLn("Rührwerk an");
+            brauKessel.SetHeizwerkStatus(true);
+            printer.PrintLn("Heizwerk an");
         }else if(param[0].equals("-d"))
         {
-            brauKessel.SetRuehwerkStatus(false);
-            printer.PrintLn("Rührwerk aus");
+            brauKessel.SetHeizwerkStatus(false);
+            printer.PrintLn("Heizwerk aus");
         }else
         {
             printer.PrintLn("Ungültige Aktion");

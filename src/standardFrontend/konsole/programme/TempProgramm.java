@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package standardFrontend.konsole;
+package standardFrontend.konsole.programme;
 
 import brauhaus.IBrauKessel;
 import standardFrontend.gui.GStandardSteuerFenster;
