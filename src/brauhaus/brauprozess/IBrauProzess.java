@@ -16,6 +16,5 @@ public interface IBrauProzess {
     IBrauPlan GetBrauPlan();
     BrauProzessInfo GetProzessInfo();
     void Start() throws Exception;
-    void Stop() throws Exception;
     void Pause() throws Exception;
 }

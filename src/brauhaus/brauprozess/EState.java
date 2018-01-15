@@ -10,5 +10,5 @@ package brauhaus.brauprozess;
  * @author marian
  */
 public enum EState {
-    Play, Pause, Stop
+    Play, Pause
 }

@@ -35,9 +35,10 @@ public class TimerProzessSteuerung implements IBrauProzess
         this.hardwareSteuerung = hardwareSteuerung;
         setTimerIntervall(timerIntervall);
              
-        this.brauProzess = new BrauAblaufProzess(brauPlan,this.hardwareInformation, this.hardwareSteuerung);        
+        initBrauprozess();        
     }
 
+    
     @Override
     public IBrauPlan GetBrauPlan() {
         return brauPlan;
@@ -50,35 +51,27 @@ public class TimerProzessSteuerung implements IBrauProzess
 
     @Override
     public void Start() throws Exception {
-        if(prozessTimer != null)
-            throw new Exception("Prozess läuft bereits");
-        if(terminated)
-            throw new Exception("Prozess durchgelaufen");       
-       
-        prozessTimer = new Timer();
-        prozessTimer.schedule(brauProzess, 0, timerIntervall);
-    }
-
-    @Override
-    public void Stop() throws Exception {
-        if(prozessTimer == null)
-            throw new Exception("Prozess nicht gestartet");
-        prozessTimer.cancel();
-        prozessTimer = null;
+        brauProzess.Start();
     }
 
     @Override
     public void Pause() throws Exception {
-        Stop();
-    }    
-        
+        brauProzess.Pause();
+    }
+   
     private void setTimerIntervall(long timerIntervall1) throws Exception 
     {
         if(timerIntervall1 <= 0)
             throw new Exception("intervall muss groesser sein");
         this.timerIntervall = timerIntervall1;
     }
-         
+     
+    private void initBrauprozess() throws Exception {
+        this.brauProzess = new BrauAblaufProzess(brauPlan, this.hardwareInformation, this.hardwareSteuerung);
+        prozessTimer = new Timer();
+        prozessTimer.schedule((TimerTask)brauProzess, 0, timerIntervall);
+    }
+
     
     private IBrauPlan brauPlan;
     private IHardwareInformation hardwareInformation;
@@ -87,6 +80,5 @@ public class TimerProzessSteuerung implements IBrauProzess
     private Timer prozessTimer;
     private long timerIntervall;
     
-    private TimerTask brauProzess;
-    private boolean terminated = false;
+    private IBrauProzess brauProzess;
 }

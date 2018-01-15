@@ -102,7 +102,7 @@ public class BrauKessel extends Observable implements IBrauKessel {
     public void StopBrauProzess() throws Exception {
         if(brauProzess == null)
            throw new Exception("Aktueller Brauprozess existiert nicht!");
-        brauProzess.Stop();
+        brauProzess.Pause();
         brauProzess = null;
     }
     

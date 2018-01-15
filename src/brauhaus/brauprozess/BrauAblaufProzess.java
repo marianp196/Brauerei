@@ -43,7 +43,7 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
         
         this.brauPlanRepository = new BrauPlanRepository(brauPlan.GetBrauElemente());
         
-        state = EState.Stop;
+        state = EState.Pause;
     }
     
     @Override
@@ -63,15 +63,11 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
     }
 
     @Override
-    public void Stop() throws Exception {
-        state = EState.Stop;
-    }
-
-    @Override
     public void Pause() throws Exception {
         state = EState.Pause;
     }
-        
+
+          
     public void run() {
         try {
             if(state != EState.Play) //ToDo: schnelle implementierung...anderes Konzept finden
@@ -84,32 +80,37 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
         }         
     }
 
-    private void prozessIteration() throws Exception {
-        if(checkIfTheresIteration())
-            nextElement();
+    private void prozessIteration() throws Exception {        
+        checkTime();
         
         if (brauPlanRepository.IsEof()) {
             return;
         }
         
-        if(brauPlanRepository.GetActualElement() instanceof PauseElement)
-        {
-            state = EState.Pause;
-            temperaturSteuerelement =null;
-            lastElementChange = null;
+        if(checkIfPause())
             return;
-        }
-        checkTime();
+        
         checkTemp();
         log();        
     }
-     
-    public BrauProzessInfo GetBrauProzessInfo()
-    {
-        return null;
+   
+    private boolean checkIfPause() {
+        if (brauPlanRepository.GetActualElement() instanceof PauseElement) {
+            state = EState.Pause;
+            temperaturSteuerelement =null;
+            lastElementChange = null;
+            return true;
+        }
+        return false;        
     }
    
     private void checkTime() {
+        if(lastElementChange == null)
+        {
+           nextElement(); 
+           return;
+        }            
+        
         long timeSinceElementCahange = System.currentTimeMillis() - lastElementChange;
         if(timeSinceElementCahange >= ((Brauelement)brauPlanRepository.GetActualElement()).GetZeit())
             nextElement();
@@ -147,10 +148,6 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
         
     }
 
-    private boolean checkIfTheresIteration() {
-        return lastElementChange == null;
-    }
-    
     private EState state ;
         
     private ITemperaturSteuerung temperaturSteuerelement;
