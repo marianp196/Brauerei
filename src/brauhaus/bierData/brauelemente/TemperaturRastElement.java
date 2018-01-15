@@ -9,10 +9,10 @@ package brauhaus.bierData.brauelemente;
  *
  * @author marian
  */
-public class TemperaturRast extends Brauelement
+public class TemperaturRastElement extends Brauelement
 {
 
-    public TemperaturRast(long zeit,int orderNumber, long temperaturMin, long temperaturMax) throws Exception 
+    public TemperaturRastElement(long zeit,int orderNumber, long temperaturMin, long temperaturMax) throws Exception 
     {
         super(zeit, orderNumber);
         setTemperaturMax(temperaturMax);

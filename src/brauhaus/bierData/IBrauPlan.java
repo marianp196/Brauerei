@@ -7,6 +7,7 @@ package brauhaus.bierData;
 
 import brauhaus.bierData.bier.Bier;
 import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.IBrauelement;
 import java.util.ArrayList;
 
 /**
@@ -16,5 +17,5 @@ import java.util.ArrayList;
 public interface IBrauPlan 
 {
     Bier GetBierData();
-    ArrayList<Brauelement> GetBrauElemente();
+    ArrayList<IBrauelement> GetBrauElemente();
 }

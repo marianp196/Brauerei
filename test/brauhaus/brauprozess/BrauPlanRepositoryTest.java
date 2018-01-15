@@ -8,8 +8,9 @@ package brauhaus.brauprozess;
 
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
 import brauhaus.bierData.brauelemente.Brauelement;
-import brauhaus.bierData.brauelemente.HopfenKochen;
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.HopfenKochenElement;
+import brauhaus.bierData.brauelemente.IBrauelement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class BrauPlanRepositoryTest {
     }
     
    
-    private BrauPlanRepository createSut(ArrayList<Brauelement> ar) throws Exception
+    private BrauPlanRepository createSut(ArrayList<IBrauelement> ar) throws Exception
     {
         return new BrauPlanRepository(ar);
     }
@@ -48,11 +49,11 @@ public class BrauPlanRepositoryTest {
     public void Next_ReturnAllElementsInRightOrder_IfIsSortedRight() throws Exception
     {
         BrauPlanRepository sut = createSut(getTestBrauelemente());
-        Brauelement brauelement = sut.Next();
+        IBrauelement brauelement = sut.Next();
         int i =0;
         while(brauelement != null)
         {
-            Assert.assertEquals(i, brauelement.getOrderNumber());
+            Assert.assertEquals(i, brauelement.GetOrderNumber());
             brauelement = sut.Next();
             i++;
         }
@@ -63,12 +64,12 @@ public class BrauPlanRepositoryTest {
     public void GetActualElement_Return() throws Exception
     {
         BrauPlanRepository sut = createSut(getTestBrauelemente());
-        Brauelement brauelement = sut.Next();
+        IBrauelement brauelement = sut.Next();
         int i =0;
         while(brauelement != null)
         {
-            Assert.assertEquals(i, brauelement.getOrderNumber());
-            Assert.assertEquals(brauelement.getOrderNumber(), sut.GetActualElement().getOrderNumber());
+            Assert.assertEquals(i, brauelement.GetOrderNumber());
+            Assert.assertEquals(brauelement.GetOrderNumber(), sut.GetActualElement().GetOrderNumber());
             brauelement = sut.Next();
             i++;
         }
@@ -83,24 +84,24 @@ public class BrauPlanRepositoryTest {
         Assert.assertEquals(null, sut.Next());
     }
     
-    private ArrayList<Brauelement> getTestBrauelemente() throws Exception
+    private ArrayList<IBrauelement> getTestBrauelemente() throws Exception
     {
-        ArrayList<Brauelement> result = new ArrayList<>();
-        result.add(new TemperaturRast(100, 0, 10, 20));
-        result.add(new TemperaturRast(200, 2, 10, 20));
-        result.add(new TemperaturRast(200, 1, 10, 20));
-        result.add(new TemperaturRast(100, 3, 10, 20));
-        result.add(new HopfenKochen(100, 4));
+        ArrayList<IBrauelement> result = new ArrayList<>();
+        result.add(new TemperaturRastElement(100, 0, 10, 20));
+        result.add(new TemperaturRastElement(200, 2, 10, 20));
+        result.add(new TemperaturRastElement(200, 1, 10, 20));
+        result.add(new TemperaturRastElement(100, 3, 10, 20));
+        result.add(new HopfenKochenElement(100, 4));
         return result;
     }
     
-    private ArrayList<Brauelement> geTestBauelemente_withoutUniqueIds() throws Exception
+    private ArrayList<IBrauelement> geTestBauelemente_withoutUniqueIds() throws Exception
     {
-        ArrayList<Brauelement> result = new ArrayList<>();
-        result.add(new TemperaturRast(100, 0, 10, 20));
-        result.add(new TemperaturRast(200, 2, 10, 20));
-        result.add(new TemperaturRast(200, 1, 10, 20));
-        result.add(new TemperaturRast(100, 0, 10, 20));
+        ArrayList<IBrauelement> result = new ArrayList<>();
+        result.add(new TemperaturRastElement(100, 0, 10, 20));
+        result.add(new TemperaturRastElement(200, 2, 10, 20));
+        result.add(new TemperaturRastElement(200, 1, 10, 20));
+        result.add(new TemperaturRastElement(100, 0, 10, 20));
         return result;
     }
 }

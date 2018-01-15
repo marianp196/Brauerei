@@ -6,7 +6,8 @@
 package brauhaus.brauprozess.brauPlanRepository;
 
 import brauhaus.bierData.brauelemente.Brauelement;
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.IBrauelement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class BrauPlanValidator {
     
-    public BrauPlanValidator(ArrayList<Brauelement> brauelemente) throws Exception 
+    public BrauPlanValidator(ArrayList<IBrauelement> brauelemente) throws Exception 
     {
         if(brauelemente == null)
             throw new Exception("brauelemente");
@@ -36,22 +37,22 @@ public class BrauPlanValidator {
         }
     }
     
-     private ArrayList<Brauelement> sotieren(ArrayList<Brauelement> brauelemente) 
+     private ArrayList<IBrauelement> sotieren(ArrayList<IBrauelement> brauelemente) 
     {
-        ArrayList<Brauelement> sortList = new ArrayList<>(brauelemente);
+        ArrayList<IBrauelement> sortList = new ArrayList<>(brauelemente);
         Collections.sort(sortList, (o1, o2) -> {
-            return o1.getOrderNumber() - o2.getOrderNumber();
+            return o1.GetOrderNumber() - o2.GetOrderNumber();
         });
         return sortList;       
     }    
 
     private void checkTemperaturOfTempRast() throws Exception {
-        TemperaturRast rastAlt = null;
-        for(Brauelement b : brauelementeSotiert)
+        TemperaturRastElement rastAlt = null;
+        for(IBrauelement b : brauelementeSotiert)
         {
-            if(b instanceof TemperaturRast)
+            if(b instanceof TemperaturRastElement)
             {
-                TemperaturRast rast = (TemperaturRast)b;
+                TemperaturRastElement rast = (TemperaturRastElement)b;
                 if(rastAlt!=null && rastAlt.GetTemperaturMax() > rast.GetTemperaturMin())
                     throw new Exception("Violation: RastreihenFolge nicht korrekt");
                 rastAlt = rast;
@@ -60,10 +61,10 @@ public class BrauPlanValidator {
     }
     
     private void checkForUniqueIDs() throws Exception {
-        Brauelement bAlt = null;
-        for(Brauelement b : brauelementeSotiert)
+        IBrauelement bAlt = null;
+        for(IBrauelement b : brauelementeSotiert)
         {
-            if(bAlt != null && b.getOrderNumber() == bAlt.getOrderNumber())
+            if(bAlt != null && b.GetOrderNumber() == bAlt.GetOrderNumber())
             {
                 throw new Exception("OrderNumbers der Brauelemente nicht eindeutig");
             }
@@ -71,5 +72,5 @@ public class BrauPlanValidator {
         }
     }
     
-    private ArrayList<Brauelement> brauelementeSotiert; 
+    private ArrayList<IBrauelement> brauelementeSotiert; 
 }

@@ -6,6 +6,7 @@
 package brauhaus.brauprozess.brauPlanRepository;
 
 import brauhaus.bierData.brauelemente.Brauelement;
+import brauhaus.bierData.brauelemente.IBrauelement;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,7 +16,7 @@ import java.util.Collections;
  */
 public class BrauPlanRepository 
 {
-    public BrauPlanRepository(ArrayList<Brauelement> brauelemente) throws Exception 
+    public BrauPlanRepository(ArrayList<IBrauelement> brauelemente) throws Exception 
     {
         if(brauelemente == null)
             throw new Exception("brauelemente");
@@ -33,7 +34,7 @@ public class BrauPlanRepository
         return brauelementeSotiert.size() == aktuellerIndex;
     }
     
-    public Brauelement GetActualElement()
+    public IBrauelement GetActualElement()
     {
         if(aktuellerIndex >= brauelementeSotiert.size())
             return null;
@@ -45,7 +46,7 @@ public class BrauPlanRepository
      * Wenn zuende, dann gibt das ganze null zurück.
      * @return 
      */
-    public Brauelement Next()
+    public IBrauelement Next()
     {
         aktuellerIndex++;
         if(aktuellerIndex == brauelementeSotiert.size())
@@ -57,16 +58,16 @@ public class BrauPlanRepository
         return brauelementeSotiert.get(aktuellerIndex);
     }
     
-    private ArrayList<Brauelement> sotieren(ArrayList<Brauelement> brauelemente) 
+    private ArrayList<IBrauelement> sotieren(ArrayList<IBrauelement> brauelemente) 
     {
-        ArrayList<Brauelement> sortList = new ArrayList<>(brauelemente);
+        ArrayList<IBrauelement> sortList = new ArrayList<>(brauelemente);
         Collections.sort(sortList, (o1, o2) -> {
-            return o1.getOrderNumber() - o2.getOrderNumber();
+            return o1.GetOrderNumber() - o2.GetOrderNumber();
         });
         return sortList;     // irgendwie unschönes design mit dem Validator....  
     } 
      
-    private ArrayList<Brauelement> brauelementeSotiert; 
+    private ArrayList<IBrauelement> brauelementeSotiert; 
     private int aktuellerIndex = -1;
 }
 

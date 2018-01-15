@@ -7,8 +7,10 @@ package brauhaus.bierData;
 
 import brauhaus.bierData.bier.Bier;
 import brauhaus.bierData.brauelemente.Brauelement;
-import brauhaus.bierData.brauelemente.HopfenKochen;
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.HopfenKochenElement;
+import brauhaus.bierData.brauelemente.IBrauelement;
+import brauhaus.bierData.brauelemente.PauseElement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import java.util.ArrayList;
 
 /**
@@ -24,18 +26,25 @@ public class BrauPlan implements IBrauPlan
         brauelemente = new ArrayList<>();
     }
     
-    public void AddHopfenkochen(HopfenKochen hk)
+    public void AddHopfenkochen(HopfenKochenElement hk)
     {
         if(hk == null)
             throw new NullPointerException();
         brauelemente.add(hk);
     }
 
-    public void AddTemperaturRast(TemperaturRast tr)
+    public void AddTemperaturRast(TemperaturRastElement tr)
     {
         if(tr == null)
             throw new NullPointerException();
         brauelemente.add(tr);
+    }
+    
+    public void AddPause(PauseElement p)
+    {
+        if(p == null)
+            throw new NullPointerException();
+        brauelemente.add(p);
     }
     
     @Override
@@ -44,11 +53,13 @@ public class BrauPlan implements IBrauPlan
     }
 
     @Override
-    public ArrayList<Brauelement> GetBrauElemente() {
+    public ArrayList<IBrauelement> GetBrauElemente() 
+    { 
         return brauelemente;
     }
+   
     
     private Bier bier;    
-    private ArrayList<Brauelement> brauelemente;
-    
+    private ArrayList<IBrauelement> brauelemente;
+       
 }

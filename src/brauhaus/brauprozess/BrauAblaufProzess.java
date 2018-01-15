@@ -7,8 +7,9 @@ package brauhaus.brauprozess;
 
 import brauhaus.bierData.IBrauPlan;
 import brauhaus.bierData.brauelemente.Brauelement;
-import brauhaus.bierData.brauelemente.HopfenKochen;
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.HopfenKochenElement;
+import brauhaus.bierData.brauelemente.IBrauelement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import brauhaus.brauprozess.BrauProzessInfo;
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
 import brauhaus.brauprozess.temperaturSteuerung.HopfenkochenSteuerer;
@@ -69,7 +70,7 @@ public class BrauAblaufProzess extends TimerTask {
    
     private void checkTime() {
         long timeSinceElementCahange = System.currentTimeMillis() - lastElementChange;
-        if(timeSinceElementCahange >= brauPlanRepository.GetActualElement().getZeit())
+        if(timeSinceElementCahange >= ((Brauelement)brauPlanRepository.GetActualElement()).GetZeit())
             nextElement();
     }
     
@@ -87,15 +88,15 @@ public class BrauAblaufProzess extends TimerTask {
         brauPlanRepository.Next();
         lastElementChange = System.currentTimeMillis();
         
-        Brauelement element = brauPlanRepository.GetActualElement();
-        if(element instanceof HopfenKochen)
+        IBrauelement element = brauPlanRepository.GetActualElement();
+        if(element instanceof HopfenKochenElement)
         {
-            temperaturSteuerelement = new HopfenkochenSteuerer((HopfenKochen)element, 
+            temperaturSteuerelement = new HopfenkochenSteuerer((HopfenKochenElement)element, 
                     hardwareInformation, 
                     hardwareSteuerung);
-        }else if(element instanceof TemperaturRast)
+        }else if(element instanceof TemperaturRastElement)
         {
-            temperaturSteuerelement = new TemperaturRastSteuerer((TemperaturRast)element, 
+            temperaturSteuerelement = new TemperaturRastSteuerer((TemperaturRastElement)element, 
                     hardwareInformation, 
                     hardwareSteuerung);
         }

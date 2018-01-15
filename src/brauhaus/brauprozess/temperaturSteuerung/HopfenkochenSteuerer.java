@@ -5,8 +5,8 @@
  */
 package brauhaus.brauprozess.temperaturSteuerung;
 
-import brauhaus.bierData.brauelemente.HopfenKochen;
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.HopfenKochenElement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
 import sensoren.common.messergebnis.MessergebnisMetrisch;
@@ -15,10 +15,10 @@ import sensoren.common.messergebnis.MessergebnisMetrisch;
  *
  * @author marian
  */
-public class HopfenkochenSteuerer extends TemperaturSteuerung<HopfenKochen>
+public class HopfenkochenSteuerer extends TemperaturSteuerung<HopfenKochenElement>
 {
 
-    public HopfenkochenSteuerer(HopfenKochen rast, IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) {
+    public HopfenkochenSteuerer(HopfenKochenElement rast, IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) {
         super(rast, hardwareInformation, hardwareSteuerung);
     }
     

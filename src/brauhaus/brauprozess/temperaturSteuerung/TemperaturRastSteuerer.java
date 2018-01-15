@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.temperaturSteuerung;
 
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
 import sensoren.common.messergebnis.EPraefix;
@@ -15,9 +15,9 @@ import sensoren.common.messergebnis.MessergebnisMetrisch;
  *
  * @author marian
  */
-public class TemperaturRastSteuerer extends TemperaturSteuerung<TemperaturRast>{
+public class TemperaturRastSteuerer extends TemperaturSteuerung<TemperaturRastElement>{
 
-    public TemperaturRastSteuerer(TemperaturRast rast, IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) {
+    public TemperaturRastSteuerer(TemperaturRastElement rast, IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) {
         super(rast, hardwareInformation, hardwareSteuerung);
     }    
     
@@ -31,7 +31,7 @@ public class TemperaturRastSteuerer extends TemperaturSteuerung<TemperaturRast>{
         checkIfAufgeheiztToRightTemperatur(getRast(), temp);
     }
     
-    private void checkIfAufgeheiztToRightTemperatur(TemperaturRast rast, MessergebnisMetrisch messergebnisMetrisch) throws Exception {
+    private void checkIfAufgeheiztToRightTemperatur(TemperaturRastElement rast, MessergebnisMetrisch messergebnisMetrisch) throws Exception {
         if(getHardwareInformation().GetHeizWerkStatus())
         {
             long zielTemp = getMittelwertTemperaturRast(rast);
@@ -42,7 +42,7 @@ public class TemperaturRastSteuerer extends TemperaturSteuerung<TemperaturRast>{
         }
     }
    
-    private void checkIfNeedAufheizen(MessergebnisMetrisch messergebnisMetrisch, TemperaturRast rast) throws Exception {
+    private void checkIfNeedAufheizen(MessergebnisMetrisch messergebnisMetrisch, TemperaturRastElement rast) throws Exception {
         if(messergebnisMetrisch.GetPraefixValue(EPraefix.milli) < rast.GetTemperaturMin())
         {
             if(!getHardwareInformation().GetHeizWerkStatus())
@@ -50,14 +50,14 @@ public class TemperaturRastSteuerer extends TemperaturSteuerung<TemperaturRast>{
         }
     }
 
-    private void checkIfNeedAbkuehlen(MessergebnisMetrisch messergebnisMetrisch, TemperaturRast rast) throws Exception {
+    private void checkIfNeedAbkuehlen(MessergebnisMetrisch messergebnisMetrisch, TemperaturRastElement rast) throws Exception {
         if(messergebnisMetrisch.GetPraefixValue(EPraefix.milli) > rast.GetTemperaturMax())
         {
             abkuehlenStart();
         }
     }
     
-     private long getMittelwertTemperaturRast(TemperaturRast rast) {
+     private long getMittelwertTemperaturRast(TemperaturRastElement rast) {
         return rast.GetTemperaturMin()
                 + (rast.GetTemperaturMax() - rast.GetTemperaturMin()) / 2;
     }

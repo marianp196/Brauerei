@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.temperaturSteuerung;
 
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import brauhaus.brauprozess.temperaturSteuerung.util.HardwareMock;
 import brauhaus.brauprozess.temperaturSteuerung.util.HardwareMockDTO;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TemperaturRastTest {
     @Test
     public void Iterate_ShouldAufheizen_IfTempUnderMin() throws Exception
     {
-        TemperaturRast rast = new TemperaturRast(10, 1000000000, 
+        TemperaturRastElement rast = new TemperaturRastElement(10, 1000000000, 
                 10 * 1000, 20 *1000);
         TemperaturRastSteuerer sut = createSut(rast);
         
@@ -52,7 +52,7 @@ public class TemperaturRastTest {
      @Test
     public void Iterate_ShouldNotReActivateRuehrwerk_IfDeactivatedManually() throws Exception
     {
-        TemperaturRast rast = new TemperaturRast(10, 1000000000, 
+        TemperaturRastElement rast = new TemperaturRastElement(10, 1000000000, 
                 10 * 1000, 20 *1000);
         TemperaturRastSteuerer sut = createSut(rast);
         
@@ -77,7 +77,7 @@ public class TemperaturRastTest {
     @Test
     public void Iterate_ShouldStopAufheizen_IfMittelwertVonRastErreicht() throws Exception
     {
-        TemperaturRast rast = new TemperaturRast(10, 1000000000, 
+        TemperaturRastElement rast = new TemperaturRastElement(10, 1000000000, 
                 10 * 1000, 20 *1000);
         TemperaturRastSteuerer sut = createSut(rast);
         
@@ -108,7 +108,7 @@ public class TemperaturRastTest {
     @Test
     public void Iterate_ShouldStartAufheizen_IfTempSinktUnterMin() throws Exception
     {
-        TemperaturRast rast = new TemperaturRast(10, 1000000000, 
+        TemperaturRastElement rast = new TemperaturRastElement(10, 1000000000, 
                 10 * 1000, 20 *1000);
         TemperaturRastSteuerer sut = createSut(rast);
         
@@ -140,7 +140,7 @@ public class TemperaturRastTest {
     @Test
     public void Iterate_ShouldAbkuehlenLassen_IfTempOverMax() throws Exception
     {
-        TemperaturRast rast = new TemperaturRast(10, 1000000000, 
+        TemperaturRastElement rast = new TemperaturRastElement(10, 1000000000, 
                 10 * 1000, 20 *1000);
         TemperaturRastSteuerer sut = createSut(rast);
         
@@ -180,7 +180,7 @@ public class TemperaturRastTest {
         return new MessergebnisMetrisch(temp, EEinheit.Celsius);
     }
     
-    private TemperaturRastSteuerer createSut(TemperaturRast rast)
+    private TemperaturRastSteuerer createSut(TemperaturRastElement rast)
     {
         return new TemperaturRastSteuerer(rast, hardwaremMock, hardwaremMock);
     }

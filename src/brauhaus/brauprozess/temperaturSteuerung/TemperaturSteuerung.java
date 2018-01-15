@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess.temperaturSteuerung;
 
-import brauhaus.bierData.brauelemente.TemperaturRast;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
 import sensoren.common.messergebnis.MessergebnisMetrisch;

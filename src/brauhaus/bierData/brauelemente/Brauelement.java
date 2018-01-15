@@ -9,7 +9,7 @@ package brauhaus.bierData.brauelemente;
  *
  * @author marian
  */
-public abstract class Brauelement 
+public abstract class Brauelement implements IBrauelement
 {
     public Brauelement(long zeit, int orderNumber) throws Exception
     {
@@ -17,11 +17,11 @@ public abstract class Brauelement
         setZeit(zeit);
     }
 
-     public long getZeit() {
+    public long GetZeit() {
         return zeit;
     }
     
-    public int getOrderNumber() {
+    public int GetOrderNumber() {
         return orderNumber;
     }
     
@@ -36,8 +36,8 @@ public abstract class Brauelement
             throw new Exception("orderNumber muss größer 0 sein");
         this.orderNumber = orderNumber;
     }    
+   
     private long zeit;
     private int orderNumber;
-
    
 }

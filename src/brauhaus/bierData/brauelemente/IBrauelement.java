@@ -6,12 +6,9 @@
 package brauhaus.bierData.brauelemente;
 
 /**
- * 
+ *
  * @author marian
  */
-public class HopfenKochen extends Brauelement
-{    
-    public HopfenKochen(long zeit, int orderNumber) throws Exception {
-        super(zeit, orderNumber);
-    }    
+public interface IBrauelement {
+    int GetOrderNumber();
 }
