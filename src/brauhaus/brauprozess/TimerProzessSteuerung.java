@@ -33,11 +33,12 @@ public class TimerProzessSteuerung implements IBrauProzess
         this.brauPlan = brauPlan;
         this.hardwareInformation = hardwareInformation;
         this.hardwareSteuerung = hardwareSteuerung;
-        setTimerIntervall(timerIntervall);
-             
-        initBrauprozess();        
+        
+        setTimerIntervall(timerIntervall);             
+        initBrauprozess();
+        
+        staus = EState.Play;
     }
-
     
     @Override
     public IBrauPlan GetBrauPlan() {
@@ -51,12 +52,19 @@ public class TimerProzessSteuerung implements IBrauProzess
 
     @Override
     public void Start() throws Exception {
-        brauProzess.Start();
+        prozessTimer = new Timer();
+        prozessTimer.schedule((TimerTask)brauProzess, 0, timerIntervall);
+        staus = EState.Play;
     }
 
     @Override
-    public void Pause() throws Exception {
-        brauProzess.Pause();
+    public void Pause() throws Exception 
+    {
+        if(prozessTimer == null)
+            return;
+        prozessTimer.cancel();
+        prozessTimer = null;
+        staus = EState.Pause;
     }
    
     private void setTimerIntervall(long timerIntervall1) throws Exception 
@@ -67,11 +75,13 @@ public class TimerProzessSteuerung implements IBrauProzess
     }
      
     private void initBrauprozess() throws Exception {
-        this.brauProzess = new BrauAblaufProzess(brauPlan, this.hardwareInformation, this.hardwareSteuerung);
-        prozessTimer = new Timer();
-        prozessTimer.schedule((TimerTask)brauProzess, 0, timerIntervall);
+        this.brauProzess = new BrauAblaufProzess(brauPlan, 
+                                                 this.hardwareInformation, 
+                                                 this.hardwareSteuerung, 
+                                                 this);
     }
 
+    EState staus;
     
     private IBrauPlan brauPlan;
     private IHardwareInformation hardwareInformation;
@@ -80,5 +90,5 @@ public class TimerProzessSteuerung implements IBrauProzess
     private Timer prozessTimer;
     private long timerIntervall;
     
-    private IBrauProzess brauProzess;
+    private BrauAblaufProzess brauProzess;
 }

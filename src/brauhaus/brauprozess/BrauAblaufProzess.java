@@ -27,53 +27,36 @@ import sensoren.common.messergebnis.MessergebnisMetrisch;
  *
  * @author marian
  */
-public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
+public class BrauAblaufProzess extends TimerTask{
 
-    public BrauAblaufProzess(IBrauPlan brauPlan, IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) throws Exception {
+    public BrauAblaufProzess(IBrauPlan brauPlan, 
+                             IHardwareInformation hardwareInformation, 
+                             IHardwareSteuerung hardwareSteuerung,
+                             IBrauProzess brauProzess) throws Exception {
         if(brauPlan == null)
             throw new NullPointerException("brauplan");
         if(hardwareInformation == null)
             throw new NullPointerException("hardwareInformation");
         if(hardwareSteuerung == null)
             throw new NullPointerException("hardwareSteuerung");
+        if(brauProzess == null)
+            throw new NullPointerException("brauProzess");
         
         this.brauPlan = brauPlan;
         this.hardwareInformation = hardwareInformation;
         this.hardwareSteuerung = hardwareSteuerung;
+        this.brauProzess = brauProzess;
         
         this.brauPlanRepository = new BrauPlanRepository(brauPlan.GetBrauElemente());
-        
-        state = EState.Pause;
     }
     
-    @Override
-    public IBrauPlan GetBrauPlan() {
-        return brauPlan;
-    }
-
-    @Override
+   
     public BrauProzessInfo GetProzessInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
-    @Override
-    public void Start() throws Exception 
-    {
-        state = EState.Play;
-    }
-
-    @Override
-    public void Pause() throws Exception {
-        state = EState.Pause;
-    }
-
-          
     public void run() {
-        try {
-            if(state != EState.Play) //ToDo: schnelle implementierung...anderes Konzept finden
-            {
-                return;
-            }
+        try {          
             prozessIteration();
         } catch (Exception ex) {
             Logger.getLogger(BrauAblaufProzess.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,11 +77,11 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
         log();        
     }
    
-    private boolean checkIfPause() {
+    private boolean checkIfPause() throws Exception {
         if (brauPlanRepository.GetActualElement() instanceof PauseElement) {
-            state = EState.Pause;
             temperaturSteuerelement =null;
             lastElementChange = null;
+            brauProzess.Pause();
             return true;
         }
         return false;        
@@ -124,8 +107,7 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
     private void log() {
         return;
     }
-   
-    
+       
     private void nextElement() {
         brauPlanRepository.Next();
         lastElementChange = System.currentTimeMillis();
@@ -148,8 +130,6 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
         
     }
 
-    private EState state ;
-        
     private ITemperaturSteuerung temperaturSteuerelement;
     
     private Long lastElementChange;    
@@ -158,5 +138,6 @@ public class BrauAblaufProzess extends TimerTask implements IBrauProzess{
     private IBrauPlan brauPlan;
     private IHardwareInformation hardwareInformation;    
     private IHardwareSteuerung hardwareSteuerung;
+    private IBrauProzess brauProzess;
     
 }
