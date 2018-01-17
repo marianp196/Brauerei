@@ -5,7 +5,8 @@
  */
 package brauhaus;
 
-import brauhaus.bierData.IBrauPlan;
+import brauhaus.bierData.Bier;
+
 
 /**
  * Obesrste Ebene über die ein Brauprozess besteuert werden kann.
@@ -17,7 +18,7 @@ public interface IBrauKessel
     void SetRuehwerkStatus(boolean state);
     void SetHeizwerkStatus(boolean state);
     
-    void StartBrauProzess(IBrauPlan brauPlan) throws Exception;
+    void StartBrauProzess(Bier bier) throws Exception;
     void PlayBrauProzess() throws Exception;
     void PauseBrauProzess() throws Exception;
     void StopBrauProzess() throws Exception;

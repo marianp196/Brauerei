@@ -5,7 +5,7 @@
  */
 package brauhaus.brauprozess;
 
-import brauhaus.bierData.IBrauPlan;
+import brauhaus.bierData.Bier;
 import brauhaus.brauprozess.BrauProzessInfo;
 import brauhaus.brauprozess.IBrauProzess;
 import brauhaus.brauprozess.brauPlanRepository.BrauPlanRepository;
@@ -20,17 +20,17 @@ import java.util.TimerTask;
  */
 public class TimerProzessSteuerung implements IBrauProzess 
 {
-    public TimerProzessSteuerung(IBrauPlan brauPlan, long timerIntervall,
+    public TimerProzessSteuerung(Bier bier, long timerIntervall,
             IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) throws Exception 
     {
-        if(brauPlan == null)
-            throw new NullPointerException("brauplan");
+        if(bier == null)
+            throw new NullPointerException("bier");
         if(hardwareInformation == null)
             throw new NullPointerException("hardwareInformation");
         if(hardwareSteuerung == null)
             throw new NullPointerException("hardwareSteuerung");
         
-        this.brauPlan = brauPlan;
+        this.bier = bier;
         this.hardwareInformation = hardwareInformation;
         this.hardwareSteuerung = hardwareSteuerung;
         
@@ -42,7 +42,7 @@ public class TimerProzessSteuerung implements IBrauProzess
     
     @Override
     public IBrauPlan GetBrauPlan() {
-        return brauPlan;
+        return bier;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class TimerProzessSteuerung implements IBrauProzess
     }
      
     private void initBrauprozess() throws Exception {
-        this.brauProzess = new BrauAblaufProzess(brauPlan, 
+        this.brauProzess = new BrauAblaufProzess(bier.getBrauelemente(), 
                                                  this.hardwareInformation, 
                                                  this.hardwareSteuerung, 
                                                  this);
@@ -83,7 +83,7 @@ public class TimerProzessSteuerung implements IBrauProzess
 
     EState staus;
     
-    private IBrauPlan brauPlan;
+    private Bier bier;
     private IHardwareInformation hardwareInformation;
     private IHardwareSteuerung hardwareSteuerung;
     

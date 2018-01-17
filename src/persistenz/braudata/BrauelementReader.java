@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.bierData.bier;
+package persistenz.braudata;
 
 /**
  *
- * @author marian
+ * @author marianp
  */
-public class Bier {
+public class BrauelementReader {
     
 }

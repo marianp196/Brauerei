@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistenz.Konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
+import brauhaus.bierData.Bier;
 import brauhaus.bierData.IBrauPlan;
 import brauhaus.brauprozess.TimerProzessSteuerung;
 
@@ -70,14 +71,16 @@ public class BrauKessel extends Observable implements IBrauKessel {
     }
 
     @Override
-    public void StartBrauProzess(IBrauPlan brauPlan) throws Exception 
+    public void StartBrauProzess(Bier bier) throws Exception 
     {
         if(brauProzess != null)
             throw new Exception("Aktueller Brauprozess wurde nicht gestoppt!");
-        if(brauPlan == null)
-            throw new NullPointerException("brauPlan");
+        if(bier == null)
+            throw new NullPointerException("bier");
+        if(bier.getBrauelemente() == null || bier.getBrauelemente().isEmpty())
+            throw new Exception("kein Baruprozess konfiguriert");
         
-        brauProzess = new TimerProzessSteuerung(brauPlan, 500, 
+        brauProzess = new TimerProzessSteuerung(bier, 500, 
                 hardwareInformation, hardwareSteuerung);
         brauProzess.Start();
     }

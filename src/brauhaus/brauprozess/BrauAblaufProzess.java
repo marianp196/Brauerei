@@ -5,7 +5,6 @@
  */
 package brauhaus.brauprozess;
 
-import brauhaus.bierData.IBrauPlan;
 import brauhaus.bierData.brauelemente.Brauelement;
 import brauhaus.bierData.brauelemente.HopfenKochenElement;
 import brauhaus.bierData.brauelemente.IBrauelement;
@@ -18,6 +17,7 @@ import brauhaus.brauprozess.temperaturSteuerung.ITemperaturSteuerung;
 import brauhaus.brauprozess.temperaturSteuerung.TemperaturRastSteuerer;
 import hardwaresteuerung.IHardwareInformation;
 import hardwaresteuerung.IHardwareSteuerung;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +29,12 @@ import sensoren.common.messergebnis.MessergebnisMetrisch;
  */
 public class BrauAblaufProzess extends TimerTask{
 
-    public BrauAblaufProzess(IBrauPlan brauPlan, 
+    public BrauAblaufProzess(ArrayList<IBrauelement> brauelemente, 
                              IHardwareInformation hardwareInformation, 
                              IHardwareSteuerung hardwareSteuerung,
                              IBrauProzess brauProzess) throws Exception {
-        if(brauPlan == null)
-            throw new NullPointerException("brauplan");
+        if(brauelemente == null)
+            throw new NullPointerException("brauelemente");
         if(hardwareInformation == null)
             throw new NullPointerException("hardwareInformation");
         if(hardwareSteuerung == null)
@@ -42,12 +42,12 @@ public class BrauAblaufProzess extends TimerTask{
         if(brauProzess == null)
             throw new NullPointerException("brauProzess");
         
-        this.brauPlan = brauPlan;
+        this.brauelemente = brauelemente;
         this.hardwareInformation = hardwareInformation;
         this.hardwareSteuerung = hardwareSteuerung;
         this.brauProzess = brauProzess;
         
-        this.brauPlanRepository = new BrauPlanRepository(brauPlan.GetBrauElemente());
+        this.brauPlanRepository = new BrauPlanRepository(brauelemente);
     }
     
    
@@ -64,30 +64,32 @@ public class BrauAblaufProzess extends TimerTask{
     }
 
     private void prozessIteration() throws Exception {        
-        checkTime();
+        checkForNextElement();
         
         if (brauPlanRepository.IsEof()) {
             return;
         }
         
-        if(checkIfPause())
+        if(ifIsPause())
             return;
         
         checkTemp();
         log();        
     }
    
-    private boolean checkIfPause() throws Exception {
+    private boolean ifIsPause() throws Exception {
         if (brauPlanRepository.GetActualElement() instanceof PauseElement) {
             temperaturSteuerelement =null;
             lastElementChange = null;
-            brauProzess.Pause();
+            
+            brauProzess.Pause();//ToDo Vielleicht komisches Design
+            
             return true;
         }
         return false;        
     }
    
-    private void checkTime() {
+    private void checkForNextElement() {
         if(lastElementChange == null)
         {
            nextElement(); 
@@ -123,9 +125,6 @@ public class BrauAblaufProzess extends TimerTask{
             temperaturSteuerelement = new TemperaturRastSteuerer((TemperaturRastElement)element, 
                     hardwareInformation, 
                     hardwareSteuerung);
-        }else
-        {
-            temperaturSteuerelement = null; //ToDo: gefährlich !!!!!!
         }
         
     }
@@ -135,7 +134,7 @@ public class BrauAblaufProzess extends TimerTask{
     private Long lastElementChange;    
     private BrauPlanRepository brauPlanRepository;    
     
-    private IBrauPlan brauPlan;
+    private ArrayList<IBrauelement> brauelemente;
     private IHardwareInformation hardwareInformation;    
     private IHardwareSteuerung hardwareSteuerung;
     private IBrauProzess brauProzess;
