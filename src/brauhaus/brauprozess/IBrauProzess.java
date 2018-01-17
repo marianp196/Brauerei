@@ -6,14 +6,13 @@
 package brauhaus.brauprozess;
 
 import brauhaus.bierData.Bier;
-import brauhaus.bierData.IBrauPlan;
 
 /**
  *
  * @author marian
  */
 public interface IBrauProzess {
-    IBrauPlan GetBrauPlan();
+    Bier GetBier();
     BrauProzessInfo GetProzessInfo();
     void Start() throws Exception;
     void Pause() throws Exception;

@@ -18,9 +18,9 @@ import java.util.TimerTask;
  *
  * @author marian
  */
-public class TimerProzessSteuerung implements IBrauProzess 
+public class TimerSteuerung implements IBrauProzess 
 {
-    public TimerProzessSteuerung(Bier bier, long timerIntervall,
+    public TimerSteuerung(Bier bier, long timerIntervall,
             IHardwareInformation hardwareInformation, IHardwareSteuerung hardwareSteuerung) throws Exception 
     {
         if(bier == null)
@@ -41,7 +41,7 @@ public class TimerProzessSteuerung implements IBrauProzess
     }
     
     @Override
-    public IBrauPlan GetBrauPlan() {
+    public Bier GetBier() {
         return bier;
     }
 

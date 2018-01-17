@@ -17,7 +17,7 @@ import persistenz.Konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
 import brauhaus.bierData.Bier;
 import brauhaus.bierData.IBrauPlan;
-import brauhaus.brauprozess.TimerProzessSteuerung;
+import brauhaus.brauprozess.TimerSteuerung;
 
 /**
  *
@@ -80,7 +80,7 @@ public class BrauKessel extends Observable implements IBrauKessel {
         if(bier.getBrauelemente() == null || bier.getBrauelemente().isEmpty())
             throw new Exception("kein Baruprozess konfiguriert");
         
-        brauProzess = new TimerProzessSteuerung(bier, 500, 
+        brauProzess = new TimerSteuerung(bier, 500, 
                 hardwareInformation, hardwareSteuerung);
         brauProzess.Start();
     }
@@ -144,7 +144,7 @@ public class BrauKessel extends Observable implements IBrauKessel {
     }
     
     private Timer infoObserverProzess;
-    private TimerProzessSteuerung brauProzess;
+    private TimerSteuerung brauProzess;
     
     private IHardwareSteuerung hardwareSteuerung;
     private IHardwareInformation hardwareInformation;
