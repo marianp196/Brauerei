@@ -20,13 +20,8 @@ public class BrauPlanRepository
     {
         if(brauelemente == null)
             throw new Exception("brauelemente");
-         brauelementeSotiert = sotieren(brauelemente);
+         brauelementeSotiert = sotieren(brauelemente);        
          
-         /*ToDo: Das Konzept mit der Validierung überdenken. 
-            Möglicherweise übergibt der Nutzer Arraylist, in die Unstimmigkeiten geloggt werden.
-         */
-         BrauPlanValidator validator = new BrauPlanValidator(brauelemente);
-         validator.Validate();
     }
     
     public boolean IsEof()
