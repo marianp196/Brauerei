@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata;
+package startup;
 
 /**
  *
- * @author marianp
+ * @author marian
  */
-public class BrauelementReader {
-    
+public interface IPrinter {
+    void Print(String text);
+    void PrintLn(String text);
 }

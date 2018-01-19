@@ -1,8 +1,8 @@
 
 import brauhaus.IBrauKessel;
-import brauhaus.startup.ConsolePrinter;
-import brauhaus.startup.IPrinter;
-import brauhaus.startup.StandardStartupOneKessel;
+import startup.ConsolePrinter;
+import startup.IPrinter;
+import startup.StandardStartupOneKessel;
 import standardFrontend.konsole.BrauereiShell;
 
 /**
