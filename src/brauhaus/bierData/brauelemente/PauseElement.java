@@ -25,7 +25,7 @@ public class PauseElement implements IBrauelement
      @Override
     public BrauelementDto GetBrauelementDto() {
         BrauelementDto result =  new BrauelementDto();
-        result.Type = this.getClass().getTypeName();
+        result.Type = this.getClass().getSimpleName();
         result.OrderNumber = orderNumber;
         return result;
     }

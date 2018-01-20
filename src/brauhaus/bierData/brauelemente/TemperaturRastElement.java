@@ -42,7 +42,7 @@ public class TemperaturRastElement extends Brauelement
      @Override
     public BrauelementDto GetBrauelementDto() {
         BrauelementDto result =  super.GetBrauelementDto();
-        result.Type = this.getClass().getTypeName();
+        result.Type = this.getClass().getSimpleName();
         result.MaxTemp = temperaturMax;
         result.MinTemp = temperaturMin;
         return result;

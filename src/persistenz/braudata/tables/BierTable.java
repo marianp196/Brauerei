@@ -21,7 +21,7 @@ import persistenz.braudata.tables.brauelementeXmlParser.XmlToBrauelementParser;
  * @author marian
  */
 public class BierTable implements IBierTable {
-        
+    
     public BierTable(Connection connection) {
         if(connection == null)
             throw new NullPointerException("connection");
@@ -49,15 +49,16 @@ public class BierTable implements IBierTable {
     @Override
     public void Update(Bier bier) throws Exception
     {
+        //ToDo refactor
         if(!Exists(bier.getId()))
             throw new Exception("Bier existiert nicht in DB");
         
         //ToDo: Das mit den ' ist gefährlich...Andere Lösung
         Statement query = connection.createStatement();
-        String vorlage = "UPDATE Bier SET name = ':name', 'XML_Brauelemnte' = :XML_Brauelemnte WHERE id = :id";
+        String vorlage = "UPDATE Bier SET name = ':name', XML_Brauelemnte = ':XML_Brauelemnte' WHERE id = :id";
               
         
-        vorlage = vorlage.replaceAll(":name", bier.getName());
+        vorlage = vorlage.replaceAll(":name", bier.getName().replaceAll("'", ""));
         vorlage = vorlage.replaceAll(":id", String.valueOf(bier.getId()));
         
         BrauelementToXmlParser brauelementToXmlParser = new BrauelementToXmlParser();
@@ -70,6 +71,7 @@ public class BierTable implements IBierTable {
     @Override
     public Bier Get(int primaryKey) throws Exception
     {
+        //ToDo refactor
         Statement query = connection.createStatement();
         
         String vorlage = "SELECT * FROM bier WHERE id = :id";
@@ -81,7 +83,7 @@ public class BierTable implements IBierTable {
             throw new Exception("Bier mit dem Primarykey " + primaryKey + " kann nicht gelesen werden");               
         
         Bier bier = new Bier(rs.getInt("id"));
-        bier.setName(rs.getString("name"));
+        bier.setName(rs.getString("name").replaceAll("'", ""));
         
         XmlToBrauelementParser xmlToBrauelementParser = new XmlToBrauelementParser();
         bier.setBrauelemente((ArrayList<IBrauelement>)xmlToBrauelementParser.getBrauelemente(rs.getString("XML_Brauelemnte")));

@@ -13,6 +13,7 @@ import java.io.CharArrayReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.xml.bind.JAXB;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -34,21 +35,19 @@ public class XmlToBrauelementParser {
         
         for(BrauelementDto dto : brauelemenDTOs)
         {
-            if(dto.Type.equals(HopfenKochenElement.class.getTypeName()))
+            if(dto.Type.equals(HopfenKochenElement.class.getSimpleName()))
             {
                 result.add(new HopfenKochenElement(dto.Time, dto.OrderNumber));
-            }
-            
-            if(dto.Type.equals(PauseElement.class.getTypeName()))
+            }                
+            else if(dto.Type.equals(PauseElement.class.getSimpleName()))
             {
                 result.add(new PauseElement(dto.OrderNumber));
-            }
-            
-            if(dto.Type.equals(TemperaturRastElement.class.getTypeName()))
+            }            
+            else if(dto.Type.equals(TemperaturRastElement.class.getSimpleName()))
             {
                 result.add(new TemperaturRastElement(dto.Time, dto.OrderNumber, dto.MinTemp, dto.MaxTemp));
-            }
-            
+            }else
+                throw new Exception("Brauelementart beim Laden nicht registriert");
         }
         return result;
     }

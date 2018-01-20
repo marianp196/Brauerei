@@ -20,7 +20,7 @@ public class HopfenKochenElement extends Brauelement
     @Override
     public BrauelementDto GetBrauelementDto() {
         BrauelementDto result =  super.GetBrauelementDto();
-        result.Type = this.getClass().getTypeName();
+        result.Type = this.getClass().getSimpleName();
         return result;
     }
     
