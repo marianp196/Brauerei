@@ -5,6 +5,8 @@
  */
 package brauhaus.bierData.brauelemente;
 
+import persistenz.braudata.repository.brauelementeXmlParser.BrauelementDto;
+
 /**
  * 
  * @author marian
@@ -13,5 +15,14 @@ public class HopfenKochenElement extends Brauelement
 {    
     public HopfenKochenElement(long zeit, int orderNumber) throws Exception {
         super(zeit, orderNumber);
-    }    
+    }
+
+    @Override
+    public BrauelementDto GetBrauelementDto() {
+        BrauelementDto result =  super.GetBrauelementDto();
+        result.Type = this.getClass().getTypeName();
+        return result;
+    }
+    
+    
 }

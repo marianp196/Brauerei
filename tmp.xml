@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xmlArrayDto>
+    <Brauelemente>
+        <OrderNumber>0</OrderNumber>
+        <Type>brauhaus.bierData.brauelemente.HopfenKochenElement</Type>
+        <Time>300</Time>
+        <MinTemp>0.0</MinTemp>
+        <MaxTemp>0.0</MaxTemp>
+    </Brauelemente>
+    <Brauelemente>
+        <OrderNumber>1</OrderNumber>
+        <Type>brauhaus.bierData.brauelemente.TemperaturRastElement</Type>
+        <Time>20</Time>
+        <MinTemp>20.0</MinTemp>
+        <MaxTemp>30.0</MaxTemp>
+    </Brauelemente>
+</xmlArrayDto>

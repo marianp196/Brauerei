@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistenz.braudata.repository.primaryKeyGenerators.IPrimaryKey;
 import persistenz.braudata.tables.BierTable;
+import persistenz.braudata.tables.IBierTable;
 
 /**
  *
@@ -28,10 +29,11 @@ public class BierRepository implements IBierRepository{
     ToDo: Hierrüber könnte man noch gut eine Abstraktion schaffen....
     */
         
-    public BierRepository(IPrimaryKey<Integer> primKeyGeneratorBier, IDatabase database) throws Exception {
+    public BierRepository(IPrimaryKey<Integer> primKeyGeneratorBier, 
+            IBierTable bierTable, IDatabase database) throws Exception {
         this.connection = database.GetConnection();
         this.primKeyGeneratorBier = primKeyGeneratorBier;
-        bierTable = new BierTable(connection);
+        this.bierTable = bierTable; 
     }
     
     @Override
@@ -84,5 +86,5 @@ public class BierRepository implements IBierRepository{
     
     Connection connection;
     IPrimaryKey<Integer> primKeyGeneratorBier;    
-    BierTable bierTable;
+    IBierTable bierTable;
 }

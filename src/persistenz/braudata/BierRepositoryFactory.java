@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package brauhaus.bierData.brauelemente;
-
-import persistenz.braudata.repository.brauelementeXmlParser.BrauelementDto;
+package persistenz.braudata;
 
 /**
  *
  * @author marian
  */
-public interface IBrauelement {
-    int GetOrderNumber();
-    BrauelementDto GetBrauelementDto();
+public class BierRepositoryFactory 
+{
+    
 }

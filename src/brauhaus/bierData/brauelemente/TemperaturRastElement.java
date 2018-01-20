@@ -5,6 +5,8 @@
  */
 package brauhaus.bierData.brauelemente;
 
+import persistenz.braudata.repository.brauelementeXmlParser.BrauelementDto;
+
 /**
  *
  * @author marian
@@ -35,6 +37,15 @@ public class TemperaturRastElement extends Brauelement
      */
     public long GetTemperaturMax() {
         return temperaturMax;
+    }
+    
+     @Override
+    public BrauelementDto GetBrauelementDto() {
+        BrauelementDto result =  super.GetBrauelementDto();
+        result.Type = this.getClass().getTypeName();
+        result.MaxTemp = temperaturMax;
+        result.MinTemp = temperaturMin;
+        return result;
     }
     
     private void setTemperaturMin(long temperaturMin) throws Exception {

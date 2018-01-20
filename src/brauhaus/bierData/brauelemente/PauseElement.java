@@ -5,6 +5,8 @@
  */
 package brauhaus.bierData.brauelemente;
 
+import persistenz.braudata.repository.brauelementeXmlParser.BrauelementDto;
+
 /**
  *
  * @author marian
@@ -18,6 +20,14 @@ public class PauseElement implements IBrauelement
     @Override
     public int GetOrderNumber() {
         return orderNumber;
+    }
+    
+     @Override
+    public BrauelementDto GetBrauelementDto() {
+        BrauelementDto result =  new BrauelementDto();
+        result.Type = this.getClass().getTypeName();
+        result.OrderNumber = orderNumber;
+        return result;
     }
 
     private void setOrderNumber(int orderNumber) throws Exception 

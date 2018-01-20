@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.tables;
+package persistenz.braudata.repository.brauelementeXmlParser;
+
+import brauhaus.bierData.brauelemente.IBrauelement;
 
 /**
  *
  * @author marian
  */
-public class BierProzessElementeTable {
-    
+public class XmlArrayDto {
+    public BrauelementDto[] Brauelemente;
 }

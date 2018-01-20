@@ -17,7 +17,7 @@ import java.util.Collection;
  *
  * @author marian
  */
-public class BierTable {
+public class BierTable implements IBierTable {
         
     public BierTable(Connection connection) {
         if(connection == null)
@@ -25,6 +25,7 @@ public class BierTable {
         this.connection = connection;
     }
     
+    @Override
     public void CreateNew(int primaryKey) throws SQLException
     {
         Statement query = connection.createStatement();
@@ -33,6 +34,7 @@ public class BierTable {
         query.execute(vorlage);
     }
     
+    @Override
     public void Remove(int primaryKey) throws SQLException
     {
         Statement query = connection.createStatement();
@@ -41,6 +43,7 @@ public class BierTable {
         query.execute(vorlage);
     }
     
+    @Override
     public void Update(Bier bier) throws Exception
     {
         if(!Exists(bier.getId()))
@@ -55,6 +58,7 @@ public class BierTable {
         query.execute(vorlage);
     }   
     
+    @Override
     public Bier Get(int primaryKey) throws Exception
     {
         Statement query = connection.createStatement();
@@ -73,6 +77,7 @@ public class BierTable {
         return bier;
     }
     
+    @Override
     public Collection<Integer> GetAllIds() throws SQLException
     {
         Statement queryAllePrimaryKeys = connection.createStatement();
@@ -88,6 +93,7 @@ public class BierTable {
         return result;
     }
     
+    @Override
     public boolean Exists(int primaryKey) throws SQLException
     {
         Statement query = connection.createStatement();
