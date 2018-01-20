@@ -18,7 +18,7 @@ public interface IBierRepository {
      * einzig gefüllt mit dem PrimaryKey, zurück
      * @return 
      */
-    Bier Create() throws Exception;
+    Bier CreateNew() throws Exception;
     /**
      * Gibt vorhandenes Datenbankobjekt zurück.
      * @param id
