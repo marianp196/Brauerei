@@ -5,7 +5,7 @@
  */
 package brauhaus.bierData.brauelemente;
 
-import persistenz.braudata.repository.brauelementeXmlParser.BrauelementDto;
+import persistenz.braudata.tables.brauelementeXmlParser.BrauelementDto;
 
 /**
  * 

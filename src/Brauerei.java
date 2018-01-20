@@ -4,7 +4,7 @@ import brauhaus.bierData.brauelemente.HopfenKochenElement;
 import brauhaus.bierData.brauelemente.IBrauelement;
 import brauhaus.bierData.brauelemente.TemperaturRastElement;
 import java.util.ArrayList;
-import persistenz.braudata.repository.brauelementeXmlParser.BrauelementToXmlParser;
+import persistenz.braudata.tables.brauelementeXmlParser.BrauelementToXmlParser;
 import startup.ConsolePrinter;
 import startup.IPrinter;
 import startup.StandardStartupOneKessel;

@@ -6,12 +6,15 @@
 package persistenz.braudata.tables;
 
 import brauhaus.bierData.Bier;
+import brauhaus.bierData.brauelemente.IBrauelement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import persistenz.braudata.tables.brauelementeXmlParser.BrauelementToXmlParser;
+import persistenz.braudata.tables.brauelementeXmlParser.XmlToBrauelementParser;
 
 /**
  *
@@ -49,11 +52,17 @@ public class BierTable implements IBierTable {
         if(!Exists(bier.getId()))
             throw new Exception("Bier existiert nicht in DB");
         
+        //ToDo: Das mit den ' ist gefährlich...Andere Lösung
         Statement query = connection.createStatement();
-        String vorlage = "UPDATE Bier SET name = :name WHERE id = :id";
+        String vorlage = "UPDATE Bier SET name = ':name', 'XML_Brauelemnte' = :XML_Brauelemnte WHERE id = :id";
+              
         
         vorlage = vorlage.replaceAll(":name", bier.getName());
         vorlage = vorlage.replaceAll(":id", String.valueOf(bier.getId()));
+        
+        BrauelementToXmlParser brauelementToXmlParser = new BrauelementToXmlParser();
+        vorlage.replace("XML_Brauelemnte", 
+                brauelementToXmlParser.BrauelemteToXml(bier.getBrauelemente()));
         
         query.execute(vorlage);
     }   
@@ -73,6 +82,9 @@ public class BierTable implements IBierTable {
         
         Bier bier = new Bier(rs.getInt("id"));
         bier.setName(rs.getString("name"));
+        
+        XmlToBrauelementParser xmlToBrauelementParser = new XmlToBrauelementParser();
+        bier.setBrauelemente((ArrayList<IBrauelement>)xmlToBrauelementParser.getBrauelemente(rs.getString("XML_Brauelemnte")));
         
         return bier;
     }

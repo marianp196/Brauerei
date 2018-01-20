@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.repository.brauelementeXmlParser;
+package persistenz.braudata.tables.brauelementeXmlParser;
 
 import brauhaus.bierData.brauelemente.IBrauelement;
 import com.sun.corba.se.impl.io.ObjectStreamField;
