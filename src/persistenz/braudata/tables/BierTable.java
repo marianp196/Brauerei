@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -41,7 +43,7 @@ public class BierTable {
     
     public void Update(Bier bier) throws Exception
     {
-        if(!exists(bier.getId()))
+        if(!Exists(bier.getId()))
             throw new Exception("Bier existiert nicht in DB");
         
         Statement query = connection.createStatement();
@@ -71,7 +73,22 @@ public class BierTable {
         return bier;
     }
     
-    public boolean exists(int primaryKey) throws SQLException
+    public Collection<Integer> GetAllIds() throws SQLException
+    {
+        Statement queryAllePrimaryKeys = connection.createStatement();
+        ResultSet rs = queryAllePrimaryKeys.executeQuery("Select id from bier");
+        
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        while(rs.next())
+        {
+            result.add(rs.getInt(1));
+        }
+        
+        return result;
+    }
+    
+    public boolean Exists(int primaryKey) throws SQLException
     {
         Statement query = connection.createStatement();
         String vorlage = "SELECT COUNT(*) FROM BIER WHERE ID = :ID";

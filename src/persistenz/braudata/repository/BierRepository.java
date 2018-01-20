@@ -64,17 +64,16 @@ public class BierRepository implements IBierRepository{
     @Override
     public Collection<Bier> List() throws SQLException {
         /*
-        Nicht schön...aber sind ja keine größeren Datenmengen zu erwarten.
+        Nicht schön, rechenintensiv...aber sind ja keine größeren Datenmengen zu erwarten.
         */
-        Statement queryAllePrimaryKeys = connection.createStatement();
-        ResultSet rs = queryAllePrimaryKeys.executeQuery("Select id from bier");
-        
+               
+        Collection<Integer> IDs = bierTable.GetAllIds();
         ArrayList<Bier> biere = new ArrayList<>();
         
-        while(rs.next())
+        for(int id : IDs)
         {
             try {
-                biere.add(Get(rs.getInt(1)));
+                biere.add(Get(id));
             } catch (Exception ex) {
                 Logger.getLogger(BierRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
