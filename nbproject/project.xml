@@ -21,7 +21,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>KonsolenInput</foreign-project>
+                <foreign-project>KonsolenShell</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -29,7 +29,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>KonsolenShell</foreign-project>
+                <foreign-project>MCPDatenbankBibliothek</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

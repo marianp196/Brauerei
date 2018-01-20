@@ -18,9 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import persistenz.Konfiguration.IKonfiguration;
-import persistenz.Konfiguration.SteuerelementKonfiguration;
-import persistenz.Konfiguration.XMLKonfigurationReader;
 import sensoren.common.oneWire.OneWireKonfiguration;
 
 /**

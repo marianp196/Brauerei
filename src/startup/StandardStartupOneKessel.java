@@ -19,8 +19,8 @@ import brauhaus.actions.BuzzerSignal;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistenz.Konfiguration.IKonfiguration;
-import persistenz.Konfiguration.XMLKonfigurationReader;
+import persistenz.konfiguration.IKonfiguration;
+import persistenz.konfiguration.XMLKonfigurationReader;
 import sensoren.common.messergebnis.MessergebnisMetrisch;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
 

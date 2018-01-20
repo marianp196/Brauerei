@@ -14,13 +14,14 @@ import java.util.ArrayList;
  */
 public class Bier {
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Bier(int id)
+    {
         this.id = id;
     }
+    
+    public int getId() {
+        return id;
+    }   
 
     public String getName() {
         return name;
