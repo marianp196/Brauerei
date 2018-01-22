@@ -67,6 +67,7 @@ public class BierRepository implements IBierRepository{
     public Collection<Bier> List() throws SQLException {
         /*
         Nicht schön, rechenintensiv...aber sind ja keine größeren Datenmengen zu erwarten.
+        Mittlerweile auch unnötig..aber ok
         */
                
         Collection<Integer> IDs = bierTable.GetAllIds();

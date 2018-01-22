@@ -84,7 +84,7 @@ public class StandardStartupOneKessel {
             print("Lade Buzzer für Pin 19");
             signal = new BuzzerSignal(con, 19);
         } catch (Exception exception) {
-            print("Probleme mit Buzzer/Konte nicht geladen werden");
+            print("Probleme mit Buzzer/Konnte nicht geladen werden");
         }
         
         
