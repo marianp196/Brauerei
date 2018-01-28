@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata;
+package braudata.repository.primaryKeyGenerators;
 
 /**
  *
  * @author marian
  */
-public class BierRepositoryFactory 
+public interface IPrimaryKey<TDatenTyp> 
 {
-    
+    TDatenTyp GetNewPrimaryKey() throws Exception;
 }

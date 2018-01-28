@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.repository;
+package braudata.repository;
 
 import brauhaus.bierData.Bier;
 import datenbank.IDatabase;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistenz.braudata.repository.primaryKeyGenerators.IPrimaryKey;
-import persistenz.braudata.tables.BierTable;
-import persistenz.braudata.tables.IBierTable;
+import braudata.repository.primaryKeyGenerators.IPrimaryKey;
+import braudata.tables.BierTable;
+import braudata.tables.IBierTable;
 
 /**
  *

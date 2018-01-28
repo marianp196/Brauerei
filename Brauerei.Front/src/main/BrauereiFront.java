@@ -6,6 +6,7 @@
 package main;
 
 import brauhaus.IBrauKessel;
+import datenbank.IDatabase;
 import konsole.BrauereiShell;
 import startup.IPrinter;
 import startup.StandardStartupOneKessel;
@@ -15,12 +16,14 @@ import startup.StandardStartupOneKessel;
  * @author marian
  */
 public class BrauereiFront {
-      public static void main(String[] args) throws Exception
+    
+    public static void main(String[] args) throws Exception
     {
-        IPrinter printer = new ConsolePrinter(); //ToDo: IPrinterKlasse kann raus
+     
+        IPrinter printer = new ConsolePrinter();
         StandardStartupOneKessel startup = new StandardStartupOneKessel(printer);
         IBrauKessel braukessel = startup.BuildBrauKessel();
-        
+             
         BrauereiShell brauereiShell = new BrauereiShell(braukessel);        
     }
    

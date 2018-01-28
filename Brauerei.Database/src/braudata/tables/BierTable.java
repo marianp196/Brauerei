@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.tables;
+package braudata.tables;
 
 import brauhaus.bierData.Bier;
 import brauhaus.bierData.brauelemente.IBrauelement;
@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import persistenz.braudata.tables.brauelementeXmlParser.BrauelementToXmlParser;
-import persistenz.braudata.tables.brauelementeXmlParser.XmlToBrauelementParser;
+import braudata.tables.brauelementeXmlParser.BrauelementToXmlParser;
+import braudata.tables.brauelementeXmlParser.XmlToBrauelementParser;
 
 /**
  *

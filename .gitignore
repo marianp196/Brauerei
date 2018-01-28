@@ -5,3 +5,4 @@ dist/
 nbdist/
 .nb-gradle/
 /Brauerei.Front/nbproject/private/
+/Brauerei.Database/nbproject/private/

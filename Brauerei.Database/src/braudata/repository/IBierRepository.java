@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.repository;
+package braudata.repository;
 
 import brauhaus.bierData.Bier;
 import java.util.Collection;

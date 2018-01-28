@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistenz.braudata.tables.brauelementeXmlParser;
+package braudata.tables.brauelementeXmlParser;
 
 import brauhaus.bierData.brauelemente.BrauelementDto;
 import brauhaus.bierData.brauelemente.IBrauelement;
