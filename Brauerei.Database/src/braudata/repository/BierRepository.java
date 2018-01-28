@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import braudata.repository.primaryKeyGenerators.IPrimaryKey;
+import braudata.primaryKeyGenerators.IPrimaryKey;
 import braudata.tables.BierTable;
 import braudata.tables.IBierTable;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package braudata.repository.primaryKeyGenerators;
+package braudata.primaryKeyGenerators;
 
 import datenbank.IDatabase;
 import java.sql.Statement;

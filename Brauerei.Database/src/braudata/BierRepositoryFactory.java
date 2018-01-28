@@ -5,11 +5,35 @@
  */
 package braudata;
 
+import braudata.repository.BierRepository;
+import braudata.repository.IBierRepository;
+import braudata.primaryKeyGenerators.IPrimaryKey;
+import braudata.primaryKeyGenerators.IntegerPrimaryKeyGenerator;
+import braudata.tables.BierTable;
+import braudata.tables.IBierTable;
+import datenbank.IDatabase;
+
 /**
  *
  * @author marian
  */
 public class BierRepositoryFactory 
 {
+
+    public BierRepositoryFactory(IDatabase database) {
+        if(database == null)
+            throw new NullPointerException("database");
+        this.database = database;
+    }
     
+    
+    public IBierRepository CreateBierRepositoy() throws Exception
+    {
+        IPrimaryKey<Integer> primKeyGen = new IntegerPrimaryKeyGenerator(database,"ID" , "Bier");
+        IBierTable bierTable = new BierTable(database.GetConnection());
+        
+        return new BierRepository(primKeyGen, bierTable, database);
+    }
+    
+    private IDatabase database;
 }
