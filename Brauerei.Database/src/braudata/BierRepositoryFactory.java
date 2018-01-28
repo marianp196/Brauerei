@@ -29,10 +29,10 @@ public class BierRepositoryFactory
     
     public IBierRepository CreateBierRepositoy() throws Exception
     {
-        IPrimaryKey<Integer> primKeyGen = new IntegerPrimaryKeyGenerator(database,"ID" , "Bier");
+        IPrimaryKey<Integer> primKeyGenerator = new IntegerPrimaryKeyGenerator(database,"ID" , "Bier");
         IBierTable bierTable = new BierTable(database.GetConnection());
         
-        return new BierRepository(primKeyGen, bierTable, database);
+        return new BierRepository(primKeyGenerator, bierTable, database);
     }
     
     private IDatabase database;
