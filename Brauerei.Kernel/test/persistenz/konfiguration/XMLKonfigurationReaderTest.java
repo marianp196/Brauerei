@@ -5,6 +5,9 @@
  */
 package persistenz.konfiguration;
 
+import konfiguration.SteuerelementKonfiguration;
+import konfiguration.IKonfiguration;
+import konfiguration.XMLKonfigurationReader;
 import java.io.File;
 import java.io.FileWriter;
 import junit.framework.Assert;

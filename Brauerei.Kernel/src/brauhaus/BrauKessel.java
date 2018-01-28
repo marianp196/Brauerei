@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistenz.konfiguration.IKonfiguration;
+import konfiguration.IKonfiguration;
 import brauhaus.actions.IActionTryChangeSteuerelementState;
 import brauhaus.bierData.Bier;
 import brauhaus.brauprozess.TimerSteuerung;
