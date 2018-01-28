@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schemaChecker;
+package schemaChecker.createCommand;
 
 import schemaChecker.tables.ITable;
 
@@ -11,9 +11,6 @@ import schemaChecker.tables.ITable;
  *
  * @author marian
  */
-public interface ISchemaChecker 
-{
-    void AddTable(ITable table) throws Exception;
-    
-    void CheckAndCreate() throws Exception;
+public interface ISqlCreateBuilder {
+    String CreateCommand(ITable table);
 }

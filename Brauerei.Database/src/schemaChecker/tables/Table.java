@@ -60,14 +60,16 @@ public class Table implements ITable
         fields.add(field);
     }
     
+    @Deprecated
     public void AddPrimaryKey(String name, EDataType typ) throws Exception
     {
-        AddPrimaryKey(new Field(name, typ));
+        AddPrimaryKey(new Field(name, typ,500));
     }
     
+    @Deprecated
     public void AddField(String name, EDataType typ) throws Exception
     {
-        AddField(new Field(name, typ));
+        AddField(new Field(name, typ,500));
     }
     
     private boolean fieldExists(Field field)
