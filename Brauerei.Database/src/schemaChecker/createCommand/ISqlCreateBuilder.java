@@ -12,5 +12,5 @@ import schemaChecker.tables.ITable;
  * @author marian
  */
 public interface ISqlCreateBuilder {
-    String CreateCommand(ITable table);
+    String CreateCommand(ITable table) throws Exception;
 }

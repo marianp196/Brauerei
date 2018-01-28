@@ -10,5 +10,5 @@ package schemaChecker.tables;
  * @author marian
  */
 public enum EDataType {
-    
+    integer, doubl, charString, bigInt
 }
