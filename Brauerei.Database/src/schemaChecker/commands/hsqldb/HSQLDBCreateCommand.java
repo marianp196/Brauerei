@@ -3,40 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schemaChecker.createCommand;
+package schemaChecker.commands.hsqldb;
 
 import brauhaus.brauprozess.EState;
 import schemaChecker.tables.EDataType;
 import schemaChecker.tables.Field;
 import schemaChecker.tables.ITable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import schemaChecker.commands.ISqlBuilder;
 
-/**
- *
+/** 
  * @author marian
  */
-public class HSQLDBCreateCommand implements ISqlCreateBuilder
+public class HSQLDBCreateCommand implements ISqlBuilder
 {
-
-    @Override
-    public String CreateCommand(ITable table) throws Exception {
-        String SQL = "";
+    /*
+    * ToDo: refactor
+    */
+     @Override
+    public String CreateCommand(String table, Field[] primaryKeys) throws Exception 
+    {        
+        if(primaryKeys.length == 0)
+            throw new Exception("keine PrimKeyFelder");
         
-        if((table.GetFields().length + table.GetPrimaryKeys().length) == 0)
-            throw new Exception("keine Felder");
+        String SQL = "CREATE TABLE " + table + "( :FieldListe );";
         
-        SQL = "CREATE TABLE " + table.GetTableName() + "( :FieldListe );";
+        String fields = getFieldListe(primaryKeys);
+        String primaryKeyFields = getPrimaryKeys(primaryKeys);
         
-        String fields = getFieldListe(table.GetPrimaryKeys(), table.GetFields());
-        String primaryKeyFields = getPrimaryKeys(table.GetPrimaryKeys());
-        
-        if(!primaryKeyFields.isEmpty())
-            fields += " , " + primaryKeyFields;
+       
+        fields += " , " + primaryKeyFields;
         
         SQL = SQL.replaceAll(":FeldListe", fields);
         
         return SQL;
     }
+
+    @Override
+    public String AddCollumnCommand(String table,Field field) 
+    {
+        String SQL = "ALTER TABLE " + table + " ADD " + getField(field, false);
+        return SQL;
+    } 
     
     private String getPrimaryKeys(Field[] primaryKeys)
     {
@@ -52,19 +60,15 @@ public class HSQLDBCreateCommand implements ISqlCreateBuilder
         return letztesKommaAbschneiden(result);
     }
     
-    private String getFieldListe(Field[] primKeys, Field[] fields)
+    private String getFieldListe(Field[] fields)
     {
         String result = " ";
         
-        for(Field primKeyField : primKeys)
+        for(Field primKeyField : fields)
         {
             result += getField(primKeyField, true) + " , ";
         }        
-        for(Field field : primKeys)
-        {
-            result += getField(field, false) + " , ";
-        }
-        
+       
         result = letztesKommaAbschneiden(result);
         
         return result;
@@ -100,5 +104,6 @@ public class HSQLDBCreateCommand implements ISqlCreateBuilder
       else       
         throw new NotImplementedException();
     }
+  
         
 }

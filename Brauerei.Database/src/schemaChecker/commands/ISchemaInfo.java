@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package schemaChecker.createCommand;
+package schemaChecker.commands;
 
-import schemaChecker.tables.ITable;
+import schemaChecker.tables.Field;
 
 /**
  *
  * @author marian
  */
-public interface ISqlCreateBuilder {
-    String CreateCommand(ITable table) throws Exception;
+public interface ISchemaInfo {
+    boolean TableExists(String name) throws Exception;
+    Field[] GetFields(String name) throws Exception;
 }
