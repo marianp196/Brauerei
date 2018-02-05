@@ -34,7 +34,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
        
         fields += " , " + primaryKeyFields;
         
-        SQL = SQL.replaceAll(":FeldListe", fields);
+        SQL = SQL.replaceAll(":FieldListe", fields);
         
         return SQL;
     }
@@ -42,7 +42,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
     @Override
     public String AddCollumnCommand(String table,Field field) 
     {
-        String SQL = "ALTER TABLE " + table + " ADD " + getField(field, false);
+        String SQL = "ALTER TABLE " + table + " ADD " + getField(field, false) + ";";
         return SQL;
     } 
     
@@ -54,7 +54,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
 
         for(Field f : primaryKeys)
         {
-            result += " PRIMARY KEY (" + f.getName() + "), ";
+            result += "PRIMARY KEY (" + f.getName() + "), ";
         }
         
         return letztesKommaAbschneiden(result);
@@ -62,11 +62,11 @@ public class HSQLDBCreateCommand implements ISqlBuilder
     
     private String getFieldListe(Field[] fields)
     {
-        String result = " ";
+        String result = "";
         
         for(Field primKeyField : fields)
         {
-            result += getField(primKeyField, true) + " , ";
+            result += getField(primKeyField, true) + ", ";
         }        
        
         result = letztesKommaAbschneiden(result);
@@ -75,7 +75,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
     }
 
     private String letztesKommaAbschneiden(String result) {
-        result = result.substring(0, result.length()-3);
+        result = result.substring(0, result.length()-2);
         return result;
     }
     
@@ -86,7 +86,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
         result += " " + getDatentyp(f.getType(), f.getLaenge());
         
         if(notNull)
-            result += " Not Null ";
+            result += " Not Null";
         
         return result;
     }
@@ -94,7 +94,7 @@ public class HSQLDBCreateCommand implements ISqlBuilder
     private String getDatentyp(EDataType typ, int laenge)
     {
       if(typ == EDataType.charString)
-        return "varchar" + "(" + String.valueOf(laenge) + ")";
+        return "VARCHAR" + "(" + String.valueOf(laenge) + ")";
       else if(typ == EDataType.doubl)
         return "float";
       else if(typ == EDataType.integer)
