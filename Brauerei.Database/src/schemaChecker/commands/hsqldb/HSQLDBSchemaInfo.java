@@ -8,6 +8,7 @@ package schemaChecker.commands.hsqldb;
 import datenbank.IDatabase;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,39 +31,64 @@ public class HSQLDBSchemaInfo implements ISchemaInfo{
     
     @Override
     public boolean TableExists(String name) throws Exception
-    {
-        String sql = "select * from tables where name like :name";
+    {   //Irgendwie alles unschön
+        String sql = "SELECT * FROM :name";
         
         sql = sql.replaceAll(":name", name);
         
-        ResultSet rs = con.createStatement().executeQuery(sql);
+        boolean found = true;
+        try
+        {
+            con.createStatement().execute(sql);
+        }catch(Exception e)
+        {
+            found = false;
+        }
         
-        return rs.first();
+        return found;
     }
 
     @Override
     public Field[] GetFields(String name) throws SQLException, Exception 
     {
+        if(! TableExists(name))
+            throw new Exception("Tabelle existiert nicht");
+        
        Collection<Field> result = new ArrayList<>();
         
-       String sql = "select COLUMN_NAME, TYPE_NAME, COLUMN_SIZE from columns where name like :name";        
-       sql = sql.replaceAll(":name", name);
+       ResultSet rs = getResultSet(name);
        
-       ResultSet rs = con.createStatement().executeQuery(sql);
-       
-       while(rs.next())
-       {
-           result.add(new Field(rs.getString(1), getDataType(rs.getString(2))));
-       }
+       result = getFields(rs.getMetaData());
        
        return Arrays.copyOf(result.toArray(), result.toArray().length, Field[].class);
+    }
+
+    private ResultSet getResultSet(String name) throws SQLException {
+        String sql = "select * from :name";
+        sql = sql.replaceAll(":name", name);
+        ResultSet rs = con.createStatement().executeQuery(sql);
+        return rs;
+    }
+    
+    private Collection<Field> getFields(ResultSetMetaData metaData) throws SQLException, Exception {
+       ArrayList<Field> result = new ArrayList<>();
+       for(int i =1; i <= metaData.getColumnCount(); i++)
+       {
+           String name = metaData.getColumnName(i);
+           String typ = metaData.getColumnTypeName(i);
+           int length = metaData.getPrecision(i);
+           
+           result.add(new Field(name, getDataType(typ), length));
+       }
+       
+       return result;
     }
     
     private EDataType getDataType(String type)
     {
         if(type.equals("VARCHAR"))
             return EDataType.charString;
-        else if(type.equals("INT"))
+        else if(type.equals("INTEGER"))
             return EDataType.integer;
         else if(type.equals("FLOAT"))
             return EDataType.doubl;
@@ -72,5 +98,9 @@ public class HSQLDBSchemaInfo implements ISchemaInfo{
             throw new NotImplementedException();
     }
     
+         
     private Connection con;
+
+   
+
 }

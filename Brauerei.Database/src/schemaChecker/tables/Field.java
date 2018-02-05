@@ -5,6 +5,8 @@
  */
 package schemaChecker.tables;
 
+import java.util.Objects;
+
 /**
  *
  * @author marian
@@ -30,6 +32,34 @@ public class Field {
     public int getLaenge() {
         return laenge;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Field other = (Field) obj;
+        if (!this.name.equalsIgnoreCase(other.getName())) {
+            return false;
+        }
+        if (this.type != other.type) {
+            return false;
+        }
+        return true;
+    }
+    
     
     private void commonConstructor(String name1, int laenge1, EDataType type1) throws Exception, NullPointerException {
         if (name1 == null) {
