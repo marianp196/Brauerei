@@ -6,7 +6,6 @@
 package main;
 
 import brauhaus.IBrauKessel;
-import datenbank.IDatabase;
 import konsole.BrauereiShell;
 import startup.IPrinter;
 import startup.StandardStartupOneKessel;
