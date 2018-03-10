@@ -55,11 +55,12 @@ public class BierTable implements IBierTable {
         
         //ToDo: Das mit den ' ist gefährlich...Andere Lösung
         Statement query = connection.createStatement();
-        String vorlage = "UPDATE Bier SET name = ':name', XML_Brauelemnte = ':XML_Brauelemnte' WHERE id = :id";
+        String vorlage = "UPDATE Bier SET name = :name, XML_Brauelemnte = ':XML_Brauelemnte' WHERE id = :id";
               
-        
-        vorlage = vorlage.replaceAll(":name", bier.getName().replaceAll("'", ""));
         vorlage = vorlage.replaceAll(":id", String.valueOf(bier.getId()));
+        
+        String name = bier.getName() != null ? "'" + bier.getName().replaceAll("'", "") + "'" : "null"; 
+        vorlage = vorlage.replaceAll(":name", name);        
         
         BrauelementToXmlParser brauelementToXmlParser = new BrauelementToXmlParser();
         String xml =  brauelementToXmlParser.BrauelemteToXml(bier.getBrauelemente());
@@ -83,7 +84,7 @@ public class BierTable implements IBierTable {
             throw new Exception("Bier mit dem Primarykey " + primaryKey + " kann nicht gelesen werden");               
         
         Bier bier = new Bier(rs.getInt("id"));
-        bier.setName(rs.getString("name").replaceAll("'", ""));
+        bier.setName(rs.getString("name"));
         
         String xml = rs.getString("XML_Brauelemnte");
         XmlToBrauelementParser xmlToBrauelementParser = new XmlToBrauelementParser();

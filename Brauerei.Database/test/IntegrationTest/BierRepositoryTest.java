@@ -19,6 +19,10 @@ import org.junit.Test;
 import IntegrationTest.util.BierTableForTest;
 import braudata.repository.IRepository;
 import brauhaus.bierData.Bier;
+import brauhaus.bierData.brauelemente.HopfenKochenElement;
+import brauhaus.bierData.brauelemente.IBrauelement;
+import brauhaus.bierData.brauelemente.TemperaturRastElement;
+import java.util.ArrayList;
 import org.junit.Assert;
 
 /**
@@ -61,7 +65,7 @@ public class BierRepositoryTest {
         Assert.assertTrue(bier.getId() != bier2.getId());        
     }
     
-     @Test
+    @Test
     public void  Update_ShouldReadWriteNameCorrect() throws Exception
     {
         IRepository<Integer, Bier> sut = CreateSut();
@@ -71,6 +75,58 @@ public class BierRepositoryTest {
         
         Bier readFromDb = sut.Get(1);
         Assert.assertEquals(bier.getName(), readFromDb.getName());
+    }
+    
+    @Test
+    public void  Update_ShouldReadWriteNameCorrect_IfNameIsNull() throws Exception
+    {
+        IRepository<Integer, Bier> sut = CreateSut();
+        Bier bier = sut.CreateNew();       
+        sut.Update(bier);
+        
+        Bier readFromDb = sut.Get(1);
+        Assert.assertEquals(bier.getName(), readFromDb.getName());
+    }
+    
+    @Test
+    public void  Update_ShouldReadWriteBrauelemente() throws Exception
+    {
+        IRepository<Integer, Bier> sut = CreateSut();
+        Bier bier = sut.CreateNew();       
+       
+        ArrayList<IBrauelement> brauelemente = new ArrayList<>();
+        brauelemente.add(new TemperaturRastElement(300, 0, 10, 20));
+        brauelemente.add(new TemperaturRastElement(300, 1, 30, 40));
+        brauelemente.add(new HopfenKochenElement(200, 2));
+        
+        bier.setBrauelemente(brauelemente);
+        sut.Update(bier);
+        
+        Bier readFromDb = sut.Get(1);
+        //Hier genauer Testen!!!!!!!!!!!!!!!!!!
+        Assert.assertEquals(brauelemente.size(), bier.getBrauelemente().size());
+    }
+    
+     @Test
+    public void  Update_ShouldReadWriteBrauelemente_IfUpdatedTwice() throws Exception
+    {
+        IRepository<Integer, Bier> sut = CreateSut();
+        Bier bier = sut.CreateNew();       
+       
+        ArrayList<IBrauelement> brauelemente = new ArrayList<>();
+        brauelemente.add(new TemperaturRastElement(300, 0, 10, 20));
+        brauelemente.add(new TemperaturRastElement(300, 1, 30, 40));
+        brauelemente.add(new HopfenKochenElement(200, 2));
+        
+        bier.setBrauelemente(brauelemente);
+        sut.Update(bier);
+        
+        brauelemente.add(new HopfenKochenElement(3000, 3));
+        sut.Update(bier);
+        
+        Bier readFromDb = sut.Get(1);
+        //Hier genauer Testen!!!!!!!!!!!!!!!!!!
+        Assert.assertEquals(brauelemente.size(), bier.getBrauelemente().size());
     }
     
     private IRepository<Integer, Bier> CreateSut() throws Exception
