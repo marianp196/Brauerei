@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<brauhaus><hardware><oneWirePin>4</oneWirePin><thermometer><adresse>28-0516a41aadff</adresse><zeitMilliSekunden>500</zeitMilliSekunden></thermometer><heizwerk><signalPin>2</signalPin><elementPin>1</elementPin></heizwerk><ruehrwerk><signalPin>2</signalPin><elementPin>1</elementPin></ruehrwerk></hardware></brauhaus>

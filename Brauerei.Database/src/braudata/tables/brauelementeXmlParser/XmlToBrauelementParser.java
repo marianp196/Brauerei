@@ -28,6 +28,9 @@ public class XmlToBrauelementParser {
         
         BrauelementDto[] brauelemenDTOs = xmlArrayDto.Brauelemente;
         
+        if(brauelemenDTOs == null)
+            return new ArrayList<>();
+        
         return getBrauelemente(brauelemenDTOs);
     }
 

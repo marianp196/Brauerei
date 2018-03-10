@@ -19,19 +19,26 @@ public class IntegerPrimaryKeyGenerator implements IPrimaryKey<Integer> {
     public IntegerPrimaryKeyGenerator(IDatabase database, String primaryKey, String table) throws Exception {
         if(database == null)
             throw new NullPointerException("database");            
-        
-        buildSql();
-        
+      
         this.connection = database.GetConnection();
         this.primaryKey = primaryKey;
         this.table = table;
+        
+        buildSql();
+        
+      
     }
     
     @Override
     public Integer GetNewPrimaryKey() throws Exception {
         Statement query = connection.createStatement();
         ResultSet rs = query.executeQuery(SQL);
-        return rs.getInt("RESULT") + 1;
+        if(!rs.next())
+            throw new Exception("Database doesnt answer right");
+        Integer value = rs.getObject(1, Integer.class);
+        if(value == null)
+            return 0;
+        return value + 1;
     }
 
     private void buildSql() {

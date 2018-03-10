@@ -41,7 +41,7 @@ public class BierTable implements IBierTable {
     public void Remove(int primaryKey) throws SQLException
     {
         Statement query = connection.createStatement();
-        String vorlage = "INSERT INTO BIER(ID) Values (:ID)";
+        String vorlage = "DELETE FROM BIER WHERE IG = :ID";
         vorlage = vorlage.replaceAll(":ID", String.valueOf(primaryKey));
         query.execute(vorlage);
     }
@@ -62,8 +62,8 @@ public class BierTable implements IBierTable {
         vorlage = vorlage.replaceAll(":id", String.valueOf(bier.getId()));
         
         BrauelementToXmlParser brauelementToXmlParser = new BrauelementToXmlParser();
-        vorlage.replace("XML_Brauelemnte", 
-                brauelementToXmlParser.BrauelemteToXml(bier.getBrauelemente()));
+        String xml =  brauelementToXmlParser.BrauelemteToXml(bier.getBrauelemente());
+        vorlage = vorlage.replaceAll(":XML_Brauelemnte",  xml);
         
         query.execute(vorlage);
     }   
@@ -79,14 +79,15 @@ public class BierTable implements IBierTable {
         
         ResultSet rs =  query.executeQuery(vorlage);
         
-        if(!rs.first())
+        if(!rs.next())
             throw new Exception("Bier mit dem Primarykey " + primaryKey + " kann nicht gelesen werden");               
         
         Bier bier = new Bier(rs.getInt("id"));
         bier.setName(rs.getString("name").replaceAll("'", ""));
         
+        String xml = rs.getString("XML_Brauelemnte");
         XmlToBrauelementParser xmlToBrauelementParser = new XmlToBrauelementParser();
-        bier.setBrauelemente((ArrayList<IBrauelement>)xmlToBrauelementParser.getBrauelemente(rs.getString("XML_Brauelemnte")));
+        bier.setBrauelemente((ArrayList<IBrauelement>)xmlToBrauelementParser.getBrauelemente(xml));
         
         return bier;
     }
@@ -113,7 +114,10 @@ public class BierTable implements IBierTable {
         Statement query = connection.createStatement();
         String vorlage = "SELECT COUNT(*) FROM BIER WHERE ID = :ID";
         vorlage = vorlage.replaceAll(":ID", String.valueOf(primaryKey));
-        return query.executeQuery(vorlage).getInt(1) != 0;
+      
+        ResultSet rs = query.executeQuery(vorlage);
+        rs.next();      
+        return rs.getInt(1) != 0;
     }
   
     private Connection connection;

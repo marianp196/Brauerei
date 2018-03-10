@@ -12,22 +12,22 @@ import java.util.Collection;
  *
  * @author marian
  */
-public interface IBierRepository {
+public interface IRepository<TKey, TValue> {
     /**
      * Legt einen neuen Datensatz an und gibt ein Objekt, 
      * einzig gefüllt mit dem PrimaryKey, zurück
      * @return 
      */
-    Bier CreateNew() throws Exception;
+    TValue CreateNew() throws Exception;
     /**
      * Gibt vorhandenes Datenbankobjekt zurück.
      * @param id
      * @return 
      */
-    Bier Get(int id) throws Exception;
+    TValue Get(TKey id) throws Exception;
     
-    void Remove(Bier bier) throws Exception;
-    void Update(Bier bier)throws Exception;
+    void Remove(TValue bier) throws Exception;
+    void Update(TValue bier)throws Exception;
     
-    Collection<Bier> List() throws Exception;
+    Collection<TValue> List() throws Exception;
 }

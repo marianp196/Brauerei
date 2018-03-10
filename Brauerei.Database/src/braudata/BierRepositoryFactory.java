@@ -6,12 +6,12 @@
 package braudata;
 
 import braudata.repository.BierRepository;
-import braudata.repository.IBierRepository;
 import braudata.primaryKeyGenerators.IPrimaryKey;
 import braudata.primaryKeyGenerators.IntegerPrimaryKeyGenerator;
 import braudata.tables.BierTable;
 import braudata.tables.IBierTable;
 import datenbank.IDatabase;
+import braudata.repository.IRepository;
 
 /**
  *
@@ -27,7 +27,7 @@ public class BierRepositoryFactory
     }
     
     
-    public IBierRepository CreateBierRepositoy() throws Exception
+    public IRepository CreateBierRepositoy() throws Exception
     {
         IPrimaryKey<Integer> primKeyGenerator = new IntegerPrimaryKeyGenerator(database,"ID" , "Bier");
         IBierTable bierTable = new BierTable(database.GetConnection());

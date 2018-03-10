@@ -24,7 +24,7 @@ import braudata.tables.IBierTable;
  * @author marian
  */
 
-public class BierRepository implements IBierRepository{
+public class BierRepository implements IRepository<Integer, Bier>{
     /*
     ToDo: Hierrüber könnte man noch gut eine Abstraktion schaffen....
     */
@@ -40,13 +40,14 @@ public class BierRepository implements IBierRepository{
     public Bier CreateNew() throws Exception 
     {
         //ToDo: Hier sollte umbedingt auf Threadsicherheit geachtet werden
+        //Das mit den zwei Scvhreibzugriffen ist auch irgentwie murcks
         int primKey = primKeyGeneratorBier.GetNewPrimaryKey();
         bierTable.CreateNew(primKey);
         return new Bier(primKey);
     }
 
     @Override
-    public Bier Get(int id) throws Exception 
+    public Bier Get(Integer id) throws Exception 
     {
         return bierTable.Get(id);
     }

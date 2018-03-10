@@ -36,11 +36,13 @@ public class Bier {
     }
 
     public void setBrauelemente(ArrayList<IBrauelement> brauelemente) {
+        if(brauelemente == null)
+            throw new NullPointerException("brauelemente");
         this.brauelemente = brauelemente;
     }
        
     
     private int id;
     private String name;
-    private ArrayList<IBrauelement> brauelemente;
+    private ArrayList<IBrauelement> brauelemente = new ArrayList<>();
 }
